@@ -1,0 +1,10 @@
+package helpers;
+
+public class Clock {
+
+	private static boolean paused = false;
+	public static long lastFrame, totalTime;
+	public static float d = 0, multiplier = 1;
+	
+	
+}
