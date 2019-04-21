@@ -33,12 +33,15 @@ public class Boot {
 		Enemy e = new Enemy(QuickLoad("ufo"), grid.GetTile(10, 8), grid, 64, 64, 12);
 		Wave wave = new Wave(5, e);
 		Player player = new Player(grid);
+		
+		TowerCannon tower = new TowerCannon(QuickLoad("cannonBase"), grid.GetTile(14, 7), 10);
 		while(!Display.isCloseRequested()) {
 			Clock.Update();
 			
 			grid.Draw();
 			wave.Update();
 			player.Update();
+			tower.Draw();
 			
 			Display.update();
 			Display.sync(60);

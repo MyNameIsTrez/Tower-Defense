@@ -20,8 +20,8 @@ public class Player {
 	}
 	
 	public void SetTile() {
-		grid.SetTile((int) Math.floor(Mouse.getX() / 64),
-				(int) Math.floor((HEIGHT - Mouse.getY() - 1) / 64), types[index]);
+		grid.SetTile((int) Mouse.getX() / 64,
+				(int) (HEIGHT - Mouse.getY() - 1) / 64, types[index]);
 	}
 	
 	public void Update() {
