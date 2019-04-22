@@ -1,0 +1,16 @@
+package data;
+
+public class Game {
+	
+	private TileGrid grid;
+	private Player player;
+	private Wave wave;
+	
+//	Temp Variables
+		
+	
+	public void Update() {
+		
+	}
+
+}

@@ -42,7 +42,7 @@ public class Player {
 	
 	private void MoveIndex() {
 		index++;
-		if (index > types.length - 1) {
+		if (index == types.length - 1) {
 			index = 0;
 		}
 	}
