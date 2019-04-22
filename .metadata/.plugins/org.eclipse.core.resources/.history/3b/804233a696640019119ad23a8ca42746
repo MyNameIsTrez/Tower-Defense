@@ -38,13 +38,7 @@ public class TowerCannon {
 		if (timeSinceLastShot > rateOfFire) {
 			Shoot();
 			timeSinceLastShot = 0;
-		}
-
-		for (Projectile p : projectiles) {
-			p.Update();
-		}
-		
-		Draw();
+		}		
 	}
 	
 	public void Draw() {

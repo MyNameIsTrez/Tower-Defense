@@ -44,7 +44,6 @@ public class TowerCannon {
 			p.Update();
 		}
 		
-		Draw();
 	}
 	
 	public void Draw() {

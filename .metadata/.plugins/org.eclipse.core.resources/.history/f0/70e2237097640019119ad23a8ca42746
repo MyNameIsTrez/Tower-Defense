@@ -43,8 +43,6 @@ public class TowerCannon {
 		for (Projectile p : projectiles) {
 			p.Update();
 		}
-		
-		Draw();
 	}
 	
 	public void Draw() {

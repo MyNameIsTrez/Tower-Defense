@@ -40,11 +40,13 @@ public class TowerCannon {
 			timeSinceLastShot = 0;
 		}
 
-		for (Projectile p : projectiles) {
-			p.Update();
-		}
+//		for (Enemy e : enemyList) {
+//			if (e.isAlive()) {
+//				e.Update();
+//				e.Draw();
+//			}
+//		}
 		
-		Draw();
 	}
 	
 	public void Draw() {

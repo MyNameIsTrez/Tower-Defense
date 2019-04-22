@@ -34,14 +34,14 @@ public class Boot {
 		Wave wave = new Wave(5, e);
 		Player player = new Player(grid);
 		
-		TowerCannon tower = new TowerCannon(QuickLoad("cannonBase"), grid.GetTile(14, 7));
+		TowerCannon tower = new TowerCannon(QuickLoad("cannonBase"), grid.GetTile(14, 7), 10);
 		while(!Display.isCloseRequested()) {
 			Clock.Update();
 			
 			grid.Draw();
 			wave.Update();
 			player.Update();
-			tower.Update();
+			tower.Draw();
 			
 			Display.update();
 			Display.sync(60);

@@ -1,0 +1,35 @@
+package data;
+
+import static helpers.Artist.QuickLoad;
+import static helpers.Artist.DrawQuadTex;
+
+import org.newdawn.slick.opengl.Texture;
+
+public class TowerCannon {
+
+	private float x, y;
+	private int width, height, damage;
+	private Texture baseTexture, cannonTexture;
+	private Tile startTile;
+	
+	public TowerCannon(Texture baseTexture, Tile startTile, int damage) {
+		this.baseTexture = baseTexture;
+		this.cannonTexture = QuickLoad("cannonGun");
+		this.startTile = startTile;
+		this.x = startTile.getX();
+		this.y = startTile.getY();
+		this.width = startTile.getWidth();
+		this.height = startTile.getHeight();
+		this.damage = damage;
+	}
+	
+	public void Update() {
+		
+	}
+	
+	public void Draw() {
+		DrawQuadTex(baseTexture, x, y, width, height);
+		DrawQuadTex(cannonTexture, x, y, width, height);
+	}
+	
+}

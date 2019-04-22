@@ -42,6 +42,7 @@ public class Boot {
 			wave.Update();
 			player.Update();
 			tower.Update();
+			tower.Draw();
 			
 			Display.update();
 			Display.sync(60);
