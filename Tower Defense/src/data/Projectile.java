@@ -21,7 +21,6 @@ public class Projectile {
 
 	public void Update() {
 		x += Delta() * speed;
-
 		Draw();
 	}
 

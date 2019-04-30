@@ -6,11 +6,12 @@
 <fullyQualifiedTypeName name="org.newdawn.slick.util.ResourceLoader"/>
 <fullyQualifiedTypeName name="org.newdawn.slick.opengl.TextureLoader"/>
 <fullyQualifiedTypeName name="java.io.InputStream"/>
-<fullyQualifiedTypeName name="org.newdawn.slick.opengl.Texture"/>
 <fullyQualifiedTypeName name="org.lwjgl.Sys"/>
-<fullyQualifiedTypeName name="helpers.Clock"/>
 <fullyQualifiedTypeName name="org.lwjgl.input.Mouse"/>
-<fullyQualifiedTypeName name="helpers.Artist"/>
 <fullyQualifiedTypeName name="org.lwjgl.input.Keyboard"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="helpers.Artist"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.opengl.Texture"/>
+<fullyQualifiedTypeName name="helpers.Clock"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>

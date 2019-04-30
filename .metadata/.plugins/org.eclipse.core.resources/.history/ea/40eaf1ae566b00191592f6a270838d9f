@@ -1,0 +1,24 @@
+package data;
+
+public class WaveManager {
+	
+	private float timeSinceLastWave;
+	private int waveNumber, enemiesPerWave;
+	private Enemy enemyType;
+	
+	public WaveManager(Enemy enemyType, int enemiesPerWave) {
+		this.enemyType = enemyType;
+		this.enemiesPerWave = enemiesPerWave;
+		this.timeSinceLastWave = 0;
+		this.waveNumber = 0;
+	}
+	
+	public void update() {
+		
+	}
+	
+	private void newWave() {
+		
+	}
+
+}

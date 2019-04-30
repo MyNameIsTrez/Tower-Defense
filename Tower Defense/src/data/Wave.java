@@ -5,22 +5,27 @@ import static helpers.Clock.*;
 
 public class Wave {
 
-	private float cooldown, spawnTime;
+	private float timeSinceLastSpawn, spawnTime;
 	private Enemy enemyType;
 	private ArrayList<Enemy> enemyList;
+	private int enemiesPerWave;
 
-	public Wave(float spawnTime, Enemy enemyType) {
-		this.spawnTime = spawnTime;
+	public Wave(Enemy enemyType, float spawnTime, int enemiesPerWave) {
 		this.enemyType = enemyType;
-		cooldown = 0;
-		enemyList = new ArrayList<Enemy>(); // make a new enemyList
+		this.spawnTime = spawnTime;
+		this.enemiesPerWave = enemiesPerWave;
+		
+		timeSinceLastSpawn = 0;
+		enemyList = new ArrayList<Enemy>();
+		
+		Spawn();
 	}
 
 	public void Update() {
-		cooldown -= Delta();
-		if (cooldown <= 0) {
+		timeSinceLastSpawn += Delta();
+		if (timeSinceLastSpawn > spawnTime) {
 			Spawn();
-			cooldown = spawnTime;
+			timeSinceLastSpawn = 0;
 		}
 
 		for (Enemy e : enemyList) {

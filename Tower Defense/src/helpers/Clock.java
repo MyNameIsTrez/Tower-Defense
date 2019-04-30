@@ -17,9 +17,10 @@ public class Clock {
 		int delta = (int) (currentTime - lastFrame);
 		lastFrame = getTime();
 //		If you drag the window, delta gets very big, so we limit the result.
-		if (delta * 0.01f > 0.5f)
-			return 0.5f;
-		return delta * 0.01f;
+		if (delta * 0.001f > 0.05f)
+			return 0.05f;
+//		return the seconds instead of the milliseconds
+		return delta * 0.001f;
 	}
 	
 	public static float Delta() {
