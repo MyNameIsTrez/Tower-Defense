@@ -1,0 +1,37 @@
+package data;
+
+import static helpers.Artist.drawQuadTex;
+import static helpers.Clock.delta;
+
+import org.newdawn.slick.opengl.Texture;
+
+public class Projectile {
+
+	private Texture texture;
+	private float x, y, speed;
+	private int damage;
+	private Enemy target;
+
+	public Projectile(Texture texture, Enemy target, float x, float y, float speed, int damage) {
+		this.texture = texture;
+		this.target = target;
+		this.x = x;
+		this.y = y;
+		this.speed = speed;
+		this.damage = damage;
+	}
+	
+	private void calculateDirection() {
+		
+	}
+
+	public void update() {
+		x += delta() * speed;
+		draw();
+	}
+
+	public void draw() {
+		drawQuadTex(texture, x, y, 32, 32);
+	}
+
+}

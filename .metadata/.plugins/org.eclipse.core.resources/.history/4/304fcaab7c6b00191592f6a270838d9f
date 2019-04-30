@@ -37,13 +37,12 @@ public class Player {
 			t.update();
 
 //		Handle mouse input
-		if (Mouse.isButtonDown(0) && !leftMouseButtonDown) {
-			towerList.add(new TowerCannon(quickLoad("cannonBase"), grid.getTile(Mouse.getX() / 64, (HEIGHT - Mouse.getY() - 1) / 64), 10,
-					waveManager.getCurrentWave().getEnemyList()));
-
+		if (!leftMouseButtonDown) {
+			System.out.println("Mouse button 0 down");
+			
 			//setTile();
 		}
-
+		
 		leftMouseButtonDown = Mouse.isButtonDown(0);
 
 //		Handle keyboard input

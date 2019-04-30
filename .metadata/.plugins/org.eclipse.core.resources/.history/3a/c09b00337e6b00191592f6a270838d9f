@@ -28,7 +28,6 @@ public class Projectile {
 	}
 	
 	private void calculateDirection() {
-		// this can definitely be refactored to make more sense
 		float totalAllowedMovement = 1.0f; // xdir + ydir = 1
 		float xDistanceFromTarget = Math.abs(target.getX() - x);
 		float yDistanceFromTarget = Math.abs(target.getY() - y);
