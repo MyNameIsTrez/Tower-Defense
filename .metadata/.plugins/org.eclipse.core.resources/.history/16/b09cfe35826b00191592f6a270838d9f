@@ -44,8 +44,7 @@ public class TowerCannon {
 	}
 	
 	private void shoot() {
-//		The projectile gets centered on the tile with x + Game.TILE_SIZE / 4.
-		projectiles.add(new Projectile(quickLoad("bullet"), target, x + Game.TILE_SIZE / 4, y + Game.TILE_SIZE / 4, 900, 10));
+		projectiles.add(new Projectile(quickLoad("bullet"), target, x + 32, y + 32, 900, 10));
 	}
 	
 	public void update() {

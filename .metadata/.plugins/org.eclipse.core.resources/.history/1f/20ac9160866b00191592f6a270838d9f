@@ -54,10 +54,10 @@ public class Player {
 			if (Keyboard.getEventKeyState()) { // if the key is pressed
 				switch(Keyboard.getEventKey()) {
 					case Keyboard.KEY_RIGHT:
-						Clock.changeMultiplier(0.1f);
+						Clock.changeMultiplier(0.05f);
 						break;
 					case Keyboard.KEY_LEFT:
-						Clock.changeMultiplier(-0.1f);
+						Clock.changeMultiplier(-0.05f);
 						break;
 					case Keyboard.KEY_T:
 						towerList.add(new TowerCannon(quickLoad("cannonBase"), grid.getTile(18, 9), 10,

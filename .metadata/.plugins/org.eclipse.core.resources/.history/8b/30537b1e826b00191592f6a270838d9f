@@ -30,8 +30,8 @@ public class Projectile {
 	private void calculateDirection() {
 		// this can definitely be refactored to make more sense
 		float totalAllowedMovement = 1.0f; // xdir + ydir = 1
-		float xDistanceFromTarget = Math.abs(target.getX() + Game.TILE_SIZE / 4 - x);
-		float yDistanceFromTarget = Math.abs(target.getY() + Game.TILE_SIZE / 4 - y);
+		float xDistanceFromTarget = Math.abs(target.getX() - x + Game.TILE_SIZE / 2);
+		float yDistanceFromTarget = Math.abs(target.getY() - y + Game.TILE_SIZE / 2);
 		float totalDistanceFromTarget = xDistanceFromTarget + yDistanceFromTarget;
 		float xPercentOfMovement = xDistanceFromTarget / totalDistanceFromTarget;
 		xVelocity = xPercentOfMovement;
@@ -50,7 +50,7 @@ public class Projectile {
 	}
 
 	public void draw() {
-		drawQuadTex(texture, x, y, Game.TILE_SIZE / 2, Game.TILE_SIZE / 2);
+		drawQuadTex(texture, x, y, 32, 32);
 	}
 
 }
