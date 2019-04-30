@@ -25,6 +25,7 @@ public class MainMenu {
 	private void updateButtons() {
 		if (Mouse.isButtonDown(0))
 			if (menuUI.isButtonClicked("Play"))
+				System.out.println("Play button clicked");
 				StateManager.setState(GameState.GAME);
 	}
 	

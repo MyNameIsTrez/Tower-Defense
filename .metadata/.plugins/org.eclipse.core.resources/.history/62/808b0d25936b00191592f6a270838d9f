@@ -4,8 +4,6 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 
 import UI.UI;
-import helpers.StateManager;
-import helpers.StateManager.GameState;
 
 import static helpers.Artist.*;
 
@@ -25,7 +23,7 @@ public class MainMenu {
 	private void updateButtons() {
 		if (Mouse.isButtonDown(0))
 			if (menuUI.isButtonClicked("Play"))
-				StateManager.setState(GameState.GAME);
+				System.out.println("Play button clicked");
 	}
 	
 	public void update() {
