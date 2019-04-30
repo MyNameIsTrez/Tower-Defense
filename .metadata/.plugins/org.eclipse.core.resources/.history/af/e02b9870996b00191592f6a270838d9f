@@ -1,9 +1,12 @@
 package data;
 
 import static helpers.Artist.HEIGHT;
+import static helpers.Artist.quickLoad;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+
+import helpers.Clock;
 
 public class Editor {
 
@@ -51,7 +54,7 @@ public class Editor {
 
 	private void moveIndex() {
 		index++;
-		if (index > types.length - 1) {
+		if (index == types.length - 1) {
 			index = 0;
 		}
 	}

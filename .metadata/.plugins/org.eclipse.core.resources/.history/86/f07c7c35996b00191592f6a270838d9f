@@ -1,20 +1,21 @@
 package data;
 
 import static helpers.Artist.HEIGHT;
+import static helpers.Artist.quickLoad;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+
+import helpers.Clock;
 
 public class Editor {
 
 	private TileGrid grid;
 	private int index;
-	private TileType[] types;
 
 	public Editor() {
 		this.grid = new TileGrid();
 		this.index = 0;
-		
 		this.types = new TileType[3];
 		this.types[0] = TileType.Grass;
 		this.types[1] = TileType.Dirt;
@@ -37,7 +38,7 @@ public class Editor {
 					moveIndex();
 					break;
 				case Keyboard.KEY_LEFT:
-					
+					moveIndex();
 					break;
 				}
 			}
@@ -51,7 +52,7 @@ public class Editor {
 
 	private void moveIndex() {
 		index++;
-		if (index > types.length - 1) {
+		if (index == types.length - 1) {
 			index = 0;
 		}
 	}

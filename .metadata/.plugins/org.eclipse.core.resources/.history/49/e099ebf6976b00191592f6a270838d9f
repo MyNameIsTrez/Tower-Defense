@@ -30,11 +30,17 @@ public class Player {
 		this.leftMouseButtonDown = false;
 	}
 
+	public void setTile() {
+		grid.setTile((int) Mouse.getX() / Game.TILE_SIZE, (int) (HEIGHT - Mouse.getY() - 1) / Game.TILE_SIZE, types[index]);
+	}
+
 	public void update() {
+
 		for (TowerCannon t : towerList)
 			t.update();
 
 //		Handle mouse input
+//		This should be refactored
 		if (Mouse.isButtonDown(0) && !leftMouseButtonDown) {
 			towerList.add(new TowerCannon(quickLoad("cannonBase"),
 					grid.getTile(Mouse.getX() / Game.TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / Game.TILE_SIZE), 10,
@@ -46,19 +52,26 @@ public class Player {
 //		Handle keyboard input
 		while (Keyboard.next()) { // if the key is pressed/released
 			if (Keyboard.getEventKeyState()) { // if the key is pressed
-				switch (Keyboard.getEventKey()) {
-				case Keyboard.KEY_RIGHT:
-					Clock.changeMultiplier(0.1f);
-					break;
-				case Keyboard.KEY_LEFT:
-					Clock.changeMultiplier(-0.1f);
-					break;
-				case Keyboard.KEY_T:
-					towerList.add(new TowerCannon(quickLoad("cannonBase"), grid.getTile(18, 9), 10,
-							waveManager.getCurrentWave().getEnemyList()));
-					break;
+				switch(Keyboard.getEventKey()) {
+					case Keyboard.KEY_RIGHT:
+						Clock.changeMultiplier(0.1f);
+						break;
+					case Keyboard.KEY_LEFT:
+						Clock.changeMultiplier(-0.1f);
+						break;
+					case Keyboard.KEY_T:
+						towerList.add(new TowerCannon(quickLoad("cannonBase"), grid.getTile(18, 9), 10,
+								waveManager.getCurrentWave().getEnemyList()));
+						break;
 				}
 			}
+		}
+	}
+
+	private void moveIndex() {
+		index++;
+		if (index == types.length - 1) {
+			index = 0;
 		}
 	}
 

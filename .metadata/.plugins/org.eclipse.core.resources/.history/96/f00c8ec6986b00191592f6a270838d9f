@@ -62,4 +62,11 @@ public class Player {
 		}
 	}
 
+	private void moveIndex() {
+		index++;
+		if (index == types.length - 1) {
+			index = 0;
+		}
+	}
+
 }
