@@ -1,0 +1,11 @@
+package helpers;
+
+import data.TileGrid;
+
+public class Leveler {
+	
+	public static void saveMap(String mapName, TileGrid grid) {
+		
+	}
+
+}

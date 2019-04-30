@@ -1,7 +1,6 @@
 package data;
 
 import static helpers.Artist.HEIGHT;
-import static helpers.Leveler.saveMap;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -38,7 +37,7 @@ public class Editor {
 					moveIndex();
 					break;
 				case Keyboard.KEY_S:
-					saveMap("testMap", grid);
+					saveMap("mapTest", grid);
 					break;
 				}
 			}

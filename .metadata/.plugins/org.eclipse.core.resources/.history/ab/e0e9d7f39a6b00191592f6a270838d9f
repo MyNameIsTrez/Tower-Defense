@@ -38,7 +38,7 @@ public class Editor {
 					moveIndex();
 					break;
 				case Keyboard.KEY_S:
-					saveMap("testMap", grid);
+					saveMap("mapTest", grid);
 					break;
 				}
 			}
