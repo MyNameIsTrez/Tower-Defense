@@ -15,8 +15,8 @@ public class MainMenu {
 		background = quickLoad("mainMenu");
 		menuUI = new UI();
 		menuUI.addButton("Play", "playButton", WIDTH / 2 - 128, (int) (HEIGHT * 0.45));
-		menuUI.addButton("Editor", "editorButton", WIDTH / 2 - 128, (int) (HEIGHT * 0.55));
-		menuUI.addButton("Quit", "quitButton", WIDTH / 2 - 128, (int) (HEIGHT * 0.65));
+		menuUI.addButton("Editor", "playButton", WIDTH / 2 - 128, (int) (HEIGHT * 0.55));
+		menuUI.addButton("Quit", "playButton", WIDTH / 2 - 128, (int) (HEIGHT * 0.65));
 	}
 	
 	public void update() {
