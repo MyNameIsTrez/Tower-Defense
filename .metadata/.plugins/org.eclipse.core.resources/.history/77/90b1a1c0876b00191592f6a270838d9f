@@ -1,0 +1,9 @@
+package helpers;
+
+public class StateManager {
+	
+	public static enum GameState {
+		MAINMENU, GAME, EDITOR
+	}
+
+}
