@@ -22,8 +22,6 @@ public class WaveManager {
 	public void update() {
 		if (!currentWave.isCompleted())
 			currentWave.Update();
-		else
-			newWave();
 	}
 	
 	private void newWave() {

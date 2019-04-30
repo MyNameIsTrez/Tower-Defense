@@ -20,10 +20,8 @@ public class WaveManager {
 	}
 	
 	public void update() {
-		if (!currentWave.isCompleted())
+		if (currentWave != null)
 			currentWave.Update();
-		else
-			newWave();
 	}
 	
 	private void newWave() {
