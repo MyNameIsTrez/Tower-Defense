@@ -35,32 +35,32 @@ public class Enemy {
 		this.directions[0] = 0;
 //		Y direction
 		this.directions[1] = 0;
-		directions = FindNextDirections(startTile);
+		directions = findNextDirections(startTile);
 		this.currentCheckpoint = 0;
-		PopulateCheckpointList();
+		populateCheckpointList();
 	}
 	
-	public void Update() {
+	public void update() {
 		if (first)
 			first = false;
 		else {
-			if (CheckpointReached()) {
+			if (checkpointReached()) {
 				if (currentCheckpoint == checkpoints.size() - 1)
 //					The enemy reached the end of the maze.
-					Die();
+					die();
 				else {
 //					Go to the next checkpoint.
 					currentCheckpoint++;
 				}
 			} else {
 //				Move to the next checkpoint.
-				x += Delta() * checkpoints.get(currentCheckpoint).getxDirection() * speed;
-				y += Delta() * checkpoints.get(currentCheckpoint).getyDirection() * speed;
+				x += delta() * checkpoints.get(currentCheckpoint).getxDirection() * speed;
+				y += delta() * checkpoints.get(currentCheckpoint).getyDirection() * speed;
 			}
 		}
 	}
 	
-	private boolean CheckpointReached() {
+	private boolean checkpointReached() {
 		boolean reached = false;
 //		Get the tile of the current checkpoint.
 		Tile t = checkpoints.get(currentCheckpoint).getTile();
@@ -79,15 +79,15 @@ public class Enemy {
 		return reached;
 	}
 	
-	private void PopulateCheckpointList() {
+	private void populateCheckpointList() {
 //		Add the first checkpoint from the starting tile.
-		checkpoints.add(FindNextCheckpoint(startTile, directions = FindNextDirections(startTile)));
+		checkpoints.add(findNextCheckpoint(startTile, directions = findNextDirections(startTile)));
 		
 		int counter = 0;
 		boolean loop = true;
 		while (loop) {
 //			Look at the currentDirections from a checkpoint.
-			int[] currentDirections = FindNextDirections(checkpoints.get(counter).getTile());
+			int[] currentDirections = findNextDirections(checkpoints.get(counter).getTile());
 //			If the enemy has nowhere to go, stop adding checkpoints.
 //			If 20 checkpoints are checked, stop. (20 is arbitrary)
 			if (currentDirections[0] == 2 || counter == 20) {
@@ -96,13 +96,13 @@ public class Enemy {
 //				This keeps track of a tile from a checkpoint, that's gotten using the counter.
 				Tile currentCheckpointTile = checkpoints.get(counter).getTile();
 //				Add the next checkpoint based on the currentCheckpointTile and the directions you can go from currentCheckpointTile.
-				checkpoints.add(FindNextCheckpoint(currentCheckpointTile, directions = FindNextDirections(currentCheckpointTile)));
+				checkpoints.add(findNextCheckpoint(currentCheckpointTile, directions = findNextDirections(currentCheckpointTile)));
 			}
 			counter++;
 		}
 	}
 	
-	private Checkpoint FindNextCheckpoint(Tile start, int[] dir) {
+	private Checkpoint findNextCheckpoint(Tile start, int[] dir) {
 		Tile next = null;
 		Checkpoint checkpoint = null;
 		
@@ -116,12 +116,12 @@ public class Enemy {
 //			If the tile we're looking at is outside of the grid or if it's not the same type as the start tile.
 			boolean outsideGridX = start.getXTile() + dir[0] * counter == grid.getTilesWide();
 			boolean outsideGridY = start.getYTile() + dir[1] * counter == grid.getTilesHigh();
-			boolean differentType = start.getType() != grid.GetTile(start.getXTile() + dir[0] * counter, start.getYTile() + dir[1] * counter).getType();
+			boolean differentType = start.getType() != grid.getTile(start.getXTile() + dir[0] * counter, start.getYTile() + dir[1] * counter).getType();
 			if (outsideGridX ||	outsideGridY ||	differentType) {
 				found = true;
 //				Move the counter back, so we can look at the previous tile where we have to turn.
 				counter--;
-				next = grid.GetTile(start.getXTile() + dir[0] * counter,
+				next = grid.getTile(start.getXTile() + dir[0] * counter,
 						start.getYTile() + dir[1] * counter);
 			}
 			
@@ -132,14 +132,14 @@ public class Enemy {
 		return checkpoint;
 	}
 	
-	private int[] FindNextDirections(Tile start) {
+	private int[] findNextDirections(Tile start) {
 		int[] dir = new int[2];
 		
 //		Get the tiles up, right, down and left of the start tile.
-		Tile up = grid.GetTile(start.getXTile(), start.getYTile() - 1);
-		Tile right = grid.GetTile(start.getXTile() + 1, start.getYTile());
-		Tile down = grid.GetTile(start.getXTile(), start.getYTile() + 1);
-		Tile left = grid.GetTile(start.getXTile() - 1, start.getYTile());
+		Tile up = grid.getTile(start.getXTile(), start.getYTile() - 1);
+		Tile right = grid.getTile(start.getXTile() + 1, start.getYTile());
+		Tile down = grid.getTile(start.getXTile(), start.getYTile() + 1);
+		Tile left = grid.getTile(start.getXTile() - 1, start.getYTile());
 
 //		If we can go up and we're not currently going down, go up.
 		if (start.getType() == up.getType() && directions[1] != 1) {
@@ -166,12 +166,12 @@ public class Enemy {
 		return dir;
 	}
 	
-	private void Die() {
+	private void die() {
 		alive = false;
 	}
 	
-	public void Draw() {
-		DrawQuadTex(texture, x, y, width, height);
+	public void draw() {
+		drawQuadTex(texture, x, y, width, height);
 	}
 
 	public int getWidth() {

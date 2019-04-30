@@ -23,27 +23,27 @@ public class Clock {
 		return delta * 0.001f;
 	}
 	
-	public static float Delta() {
+	public static float delta() {
 		if (paused) 
 			return 0;
 		else
 			return d * multiplier;
 	}
 	
-	public static float TotalTime() {
+	public static float totalTime() {
 		return totalTime;
 	}
 	
-	public static float Multiplier() {
+	public static float multiplier() {
 		return multiplier;
 	}
 	
-	public static void Update() {
+	public static void update() {
 		d = getDelta();
 		totalTime += d;
 	}
 	
-	public static void ChangeMultiplier(int change) {
+	public static void changeMultiplier(int change) {
 		if (multiplier + change < -1 && multiplier + change > 7) {
 			
 		} else {
@@ -51,7 +51,7 @@ public class Clock {
 		}
 	}
 	
-	public static void Pause() {
+	public static void pause() {
 		paused = !paused;
 	}
 	

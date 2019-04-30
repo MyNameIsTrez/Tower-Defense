@@ -9,7 +9,7 @@ import static helpers.Artist.*;
 public class Boot {
 	
 	public Boot() {
-		BeginSession();
+		beginSession();
 		
 		int[][] map = {
 				{0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
@@ -31,9 +31,9 @@ public class Boot {
 		
 		Game game = new Game(map);
 		while(!Display.isCloseRequested()) {
-			Clock.Update();
+			Clock.update();
 			
-			game.Update();
+			game.update();
 			
 			Display.update();
 			Display.sync(60);

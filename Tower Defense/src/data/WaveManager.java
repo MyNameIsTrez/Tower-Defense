@@ -21,7 +21,7 @@ public class WaveManager {
 	
 	public void update() {
 		if (!currentWave.isCompleted())
-			currentWave.Update();
+			currentWave.update();
 		else
 			newWave();
 	}
@@ -30,6 +30,10 @@ public class WaveManager {
 		currentWave = new Wave(enemyType, timeBetweenEnemies, enemiesPerWave);
 		waveNumber++;
 		System.out.println("Beginning Wave " + waveNumber);
+	}
+	
+	public Wave getCurrentWave() {
+		return currentWave;
 	}
 
 }

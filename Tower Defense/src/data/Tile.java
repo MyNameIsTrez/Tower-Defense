@@ -17,11 +17,11 @@ public class Tile {
 		this.width = width;
 		this.height = height;
 		this.type = type;
-		this.texture = QuickLoad(type.textureName);
+		this.texture = quickLoad(type.textureName);
 	}
 	
-	public void Draw() {
-		DrawQuadTex(texture, x, y, width, height);
+	public void draw() {
+		drawQuadTex(texture, x, y, width, height);
 	}
 
 	public float getX() {

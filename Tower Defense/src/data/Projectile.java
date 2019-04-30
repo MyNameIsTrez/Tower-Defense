@@ -1,7 +1,7 @@
 package data;
 
-import static helpers.Artist.DrawQuadTex;
-import static helpers.Clock.Delta;
+import static helpers.Artist.drawQuadTex;
+import static helpers.Clock.delta;
 
 import org.newdawn.slick.opengl.Texture;
 
@@ -19,13 +19,13 @@ public class Projectile {
 		this.damage = damage;
 	}
 
-	public void Update() {
-		x += Delta() * speed;
-		Draw();
+	public void update() {
+		x += delta() * speed;
+		draw();
 	}
 
-	public void Draw() {
-		DrawQuadTex(texture, x, y, 32, 32);
+	public void draw() {
+		drawQuadTex(texture, x, y, 32, 32);
 	}
 
 }

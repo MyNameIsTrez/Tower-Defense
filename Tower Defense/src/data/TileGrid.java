@@ -26,21 +26,21 @@ public class TileGrid {
 		}
 	}
 	
-	public void SetTile(int xCoord, int yCoord, TileType type) {
+	public void setTile(int xCoord, int yCoord, TileType type) {
 		map[xCoord][yCoord] = new Tile(xCoord * 64, yCoord * 64, 64, 64, type);
 	}
 	
-	public Tile GetTile(int xTile, int yTile) {
+	public Tile getTile(int xTile, int yTile) {
 		if (xTile >= 0 && yTile >= 0 && xTile < tilesWide && yTile < tilesHigh)
 			return map[xTile][yTile];
 		else
 			return new Tile(0, 0, 0, 0, TileType.NULL);
 	}
 	
-	public void Draw() {
+	public void draw() {
 		for (Tile[] row : map) {
 			for (Tile tile : row) {
-				tile.Draw();
+				tile.draw();
 			}
 		}
 	}
