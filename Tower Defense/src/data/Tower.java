@@ -12,13 +12,13 @@ import org.newdawn.slick.opengl.Texture;
 
 public abstract class Tower implements Entity {
 
-	private Texture[] textures;
-	private float x, y, timeSinceLastShot, firingSpeed, angle;
-	private int width, height, damage, range;
-	private Enemy target;
-	private ArrayList<Enemy> enemyList;
-	private boolean targeted;
-	private ArrayList<Projectile> projectiles;
+	public Texture[] textures;
+	public float x, y, timeSinceLastShot, firingSpeed, angle;
+	public int width, height, damage, range;
+	public Enemy target;
+	public ArrayList<Enemy> enemyList;
+	public boolean targeted;
+	public ArrayList<Projectile> projectiles;
 
 	public Tower(TowerType type, Tile startTile, ArrayList<Enemy> enemyList) {
 		this.textures = type.textures;
@@ -43,6 +43,7 @@ public abstract class Tower implements Entity {
 			targeted = false;
 
 		if (!targeted) {
+			System.out.println("target is null");
 			target = acquireTarget();
 		}
 
@@ -103,7 +104,7 @@ public abstract class Tower implements Entity {
 
 	public void shoot() {
 //		The projectile gets centered on the tile with x + Game.TILE_SIZE / 4.
-		projectiles.add(new Projectile(quickLoad("bulletIce"), target, x + TILE_SIZE / 4, y + TILE_SIZE / 4,
+		projectiles.add(new ProjectileBullet(quickLoad("bullet"), target, x + TILE_SIZE / 4, y + TILE_SIZE / 4,
 				TILE_SIZE / 2, TILE_SIZE / 2, 900, damage));
 	}
 

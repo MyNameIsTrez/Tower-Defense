@@ -7,7 +7,7 @@ import static helpers.Clock.delta;
 
 import org.newdawn.slick.opengl.Texture;
 
-public class Projectile implements Entity {
+public abstract class Projectile implements Entity {
 
 	private Texture texture;
 	private float x, y, speed, xVelocity, yVelocity;
@@ -35,6 +35,26 @@ public class Projectile implements Entity {
 		calculateDirection();
 	}
 
+	public void update() {
+		if (alive) {
+			x += xVelocity * speed * delta();
+			y += yVelocity * speed * delta();
+			if (checkCollision(x, y, width, height, target.getX(), target.getY(), target.getWidth(),
+					target.getHeight()))
+				damage();
+			draw();
+		}
+	}
+
+	public void draw() {
+		drawQuadTex(texture, x, y, TILE_SIZE / 2, TILE_SIZE / 2);
+	}
+	
+	public void damage() {
+		target.damage(damage);
+		alive = false;
+	}
+
 	private void calculateDirection() {
 		// this can definitely be refactored to make more sense
 		float totalAllowedMovement = 1.0f; // xdir + ydir = 1
@@ -49,23 +69,6 @@ public class Projectile implements Entity {
 			xVelocity *= -1;
 		if (target.getY() < y)
 			yVelocity *= -1;
-	}
-
-	public void update() {
-		if (alive) {
-			x += xVelocity * speed * delta();
-			y += yVelocity * speed * delta();
-			if (checkCollision(x, y, width, height, target.getX(), target.getY(), target.getWidth(),
-					target.getHeight())) {
-				target.damage(damage);
-				alive = false;
-			}
-			draw();
-		}
-	}
-
-	public void draw() {
-		drawQuadTex(texture, x, y, TILE_SIZE / 2, TILE_SIZE / 2);
 	}
 
 	public float getX() {
@@ -98,6 +101,14 @@ public class Projectile implements Entity {
 
 	public void setHeight(int height) {
 		this.height = height;
+	}
+
+	public Enemy getTarget() {
+		return target;
+	}
+	
+	public void setAlive(boolean status) {
+		alive = status;
 	}
 
 }

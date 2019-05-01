@@ -39,7 +39,7 @@ public class Player {
 
 //		Handle mouse input
 		if (Mouse.isButtonDown(0) && !leftMouseButtonDown) {
-			towerList.add(new TowerCannonBlue(TowerType.CannonRed,
+			towerList.add(new TowerCannon(TowerType.CannonBullet,
 					grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
 		}
 		
