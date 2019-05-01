@@ -1,13 +1,15 @@
 package data;
 
+import static helpers.Artist.HEIGHT;
+import static helpers.Artist.TILE_SIZE;
+import static helpers.Artist.quickLoad;
+
+import java.util.ArrayList;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import helpers.Clock;
-
-import static helpers.Artist.*;
-
-import java.util.ArrayList;
 
 public class Player {
 
@@ -37,7 +39,7 @@ public class Player {
 //		Handle mouse input
 		if (Mouse.isButtonDown(0) && !leftMouseButtonDown) {
 			towerList.add(new TowerCannon(quickLoad("cannonBase"),
-					grid.getTile(Mouse.getX() / Game.TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / Game.TILE_SIZE), 10, 1000,
+					grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), 10, 1000,
 					waveManager.getCurrentWave().getEnemyList()));
 		}
 

@@ -1,7 +1,10 @@
 package data;
 
-import static helpers.Artist.*;
-import static helpers.Clock.*;
+import static helpers.Artist.TILE_SIZE;
+import static helpers.Artist.drawQuadTex;
+import static helpers.Artist.drawQuadTexRot;
+import static helpers.Artist.quickLoad;
+import static helpers.Clock.delta;
 
 import java.util.ArrayList;
 
@@ -32,8 +35,6 @@ public class TowerCannon {
 		this.timeSinceLastShot = 0;
 		this.projectiles = new ArrayList<Projectile>();
 		this.targeted = false;
-//		this.target = acquireTarget();
-//		this.angle = calculateAngle();
 	}
 	
 	private Enemy acquireTarget() {
@@ -70,7 +71,7 @@ public class TowerCannon {
 	
 	private void shoot() {
 //		The projectile gets centered on the tile with x + Game.TILE_SIZE / 4.
-		projectiles.add(new Projectile(quickLoad("bullet"), target, x + Game.TILE_SIZE / 4, y + Game.TILE_SIZE / 4, Game.TILE_SIZE / 2, Game.TILE_SIZE / 2, 900, damage));
+		projectiles.add(new Projectile(quickLoad("bullet"), target, x + TILE_SIZE / 4, y + TILE_SIZE / 4, TILE_SIZE / 2, TILE_SIZE / 2, 900, damage));
 	}
 	
 	public void updateEnemyList(ArrayList<Enemy> newEnemyList) {

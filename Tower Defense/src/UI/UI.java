@@ -1,9 +1,12 @@
 package UI;
 
+import static helpers.Artist.HEIGHT;
+import static helpers.Artist.drawQuadTex;
+import static helpers.Artist.quickLoad;
+
 import java.util.ArrayList;
 
 import org.lwjgl.input.Mouse;
-import static helpers.Artist.*;
 
 public class UI {
 

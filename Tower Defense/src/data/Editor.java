@@ -1,7 +1,9 @@
 package data;
 
 import static helpers.Artist.HEIGHT;
-import static helpers.Leveler.*;
+import static helpers.Artist.TILE_SIZE;
+import static helpers.Leveler.loadMap;
+import static helpers.Leveler.saveMap;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -16,7 +18,7 @@ public class Editor {
 //		this.grid = new TileGrid();
 		this.grid = loadMap("newMap1");
 		this.index = 0;
-		
+
 		this.types = new TileType[3];
 		this.types[0] = TileType.Grass;
 		this.types[1] = TileType.Dirt;
@@ -33,7 +35,7 @@ public class Editor {
 
 //		Handle keyboard input
 		while (Keyboard.next()) { // if the key is pressed/released
-			if (Keyboard.getEventKeyState()) { // if the key is pressed
+			if (Keyboard.getEventKeyState()) { // if the key is pressed, do this once
 				switch (Keyboard.getEventKey()) {
 				case Keyboard.KEY_RIGHT:
 					moveIndex();
@@ -47,7 +49,7 @@ public class Editor {
 	}
 
 	private void setTile() {
-		grid.setTile((int) Mouse.getX() / Game.TILE_SIZE, (int) (HEIGHT - Mouse.getY() - 1) / Game.TILE_SIZE,
+		grid.setTile((int) Mouse.getX() / TILE_SIZE, (int) (HEIGHT - Mouse.getY() - 1) / TILE_SIZE,
 				types[index]);
 	}
 

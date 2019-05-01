@@ -1,11 +1,11 @@
 package data;
 
-import org.newdawn.slick.opengl.Texture;
-
-import static helpers.Artist.*;
-import static helpers.Clock.*;
+import static helpers.Artist.drawQuadTex;
+import static helpers.Clock.delta;
 
 import java.util.ArrayList;
+
+import org.newdawn.slick.opengl.Texture;
 
 public class Enemy implements Entity {
 
@@ -55,16 +55,18 @@ public class Enemy implements Entity {
 				}
 			} else {
 //				Move to the next checkpoint.
-				x += delta() * checkpoints.get(currentCheckpoint).getxDirection() * speed;
-				y += delta() * checkpoints.get(currentCheckpoint).getyDirection() * speed;
+				x += delta() * checkpoints.get(currentCheckpoint).getXDirection() * speed;
+				y += delta() * checkpoints.get(currentCheckpoint).getYDirection() * speed;
 			}
 		}
 	}
 	
 	private boolean checkpointReached() {
 		boolean reached = false;
+		
 //		Get the tile of the current checkpoint.
 		Tile t = checkpoints.get(currentCheckpoint).getTile();
+		
 //		If the enemy is within a box a little larger than the size of the checkpoint tile.
 //		This should probably be rewritten, as I think it can cause bugs in edge cases (haha).
 		if (x > t.getX() - 3 &&
@@ -89,6 +91,7 @@ public class Enemy implements Entity {
 		while (loop) {
 //			Look at the currentDirections from a checkpoint.
 			int[] currentDirections = findNextDirections(checkpoints.get(counter).getTile());
+			
 //			If the enemy has nowhere to go, stop adding checkpoints.
 //			If 20 checkpoints are checked, stop. (20 is arbitrary)
 			if (currentDirections[0] == 2 || counter == 20) {
@@ -96,9 +99,11 @@ public class Enemy implements Entity {
 			} else { // Add the checkpoint.
 //				This keeps track of a tile from a checkpoint, that's gotten using the counter.
 				Tile currentCheckpointTile = checkpoints.get(counter).getTile();
+				
 //				Add the next checkpoint based on the currentCheckpointTile and the directions you can go from currentCheckpointTile.
 				checkpoints.add(findNextCheckpoint(currentCheckpointTile, directions = findNextDirections(currentCheckpointTile)));
 			}
+			
 			counter++;
 		}
 	}

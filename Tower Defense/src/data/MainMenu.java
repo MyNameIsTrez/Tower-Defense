@@ -1,13 +1,16 @@
 package data;
 
+import static helpers.Artist.HEIGHT;
+import static helpers.Artist.WIDTH;
+import static helpers.Artist.drawQuadTex;
+import static helpers.Artist.quickLoad;
+
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 
 import UI.UI;
 import helpers.StateManager;
 import helpers.StateManager.GameState;
-
-import static helpers.Artist.*;
 
 public class MainMenu {
 	

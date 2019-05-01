@@ -1,7 +1,9 @@
 package data;
 
+import static helpers.Artist.TILE_SIZE;
+import static helpers.Clock.delta;
+
 import java.util.ArrayList;
-import static helpers.Clock.*;
 
 public class Wave {
 
@@ -46,7 +48,7 @@ public class Wave {
 	}
 
 	public void spawn() {
-		enemyList.add(new Enemy(enemyType.getTexture(), enemyType.getStartTile(), enemyType.getTileGrid(), Game.TILE_SIZE, Game.TILE_SIZE,
+		enemyList.add(new Enemy(enemyType.getTexture(), enemyType.getStartTile(), enemyType.getTileGrid(), TILE_SIZE, TILE_SIZE,
 				enemyType.getSpeed(), enemyType.getHealth()));
 	}
 

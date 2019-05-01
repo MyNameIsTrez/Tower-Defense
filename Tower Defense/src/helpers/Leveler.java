@@ -17,7 +17,6 @@ public class Leveler {
 		for (int i = 0; i < grid.getTilesWide(); i++)
 			for (int j = 0; j < grid.getTilesHigh(); j++)
 				mapData += getTileID(grid.getTile(i, j));
-		
 		try {
 			File file = new File(mapName);
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
@@ -27,31 +26,30 @@ public class Leveler {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static TileGrid loadMap(String mapName) {
 		TileGrid grid = new TileGrid();
-		
+
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(mapName));
 			String data = br.readLine();
 			br.close();
-
+			
 			for (int i = 0; i < grid.getTilesWide(); i++)
 				for (int j = 0; j < grid.getTilesHigh(); j++)
-					grid.setTile(i, j, getTileType(data.substring(i * grid.getTilesHigh() + j, i * grid.getTilesHigh() + j + 1)));
-					
+					grid.setTile(i, j,
+							getTileType(data.substring(i * grid.getTilesHigh() + j, i * grid.getTilesHigh() + j + 1)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-				
-		
+
 		return grid;
 	}
-	
+
 	public static TileType getTileType(String ID) {
 		TileType type = TileType.NULL;
-		
-		switch(ID) {
+
+		switch (ID) {
 		case "0":
 			type = TileType.Grass;
 			break;
@@ -65,7 +63,7 @@ public class Leveler {
 			type = TileType.NULL;
 			break;
 		}
-		
+
 		return type;
 	}
 

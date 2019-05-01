@@ -1,5 +1,7 @@
 package data;
 
+import static helpers.Artist.TILE_SIZE;
+
 public class TileGrid {
 
 	public Tile[][] map;
@@ -11,7 +13,7 @@ public class TileGrid {
 		map = new Tile[20][15];
 		for (int i = 0; i < map.length; i++)
 			for (int j = 0; j < map[i].length; j++)
-				map[i][j] = new Tile(i * Game.TILE_SIZE, j * Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE,
+				map[i][j] = new Tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE,
 						TileType.Grass);
 	}
 
@@ -23,22 +25,22 @@ public class TileGrid {
 			for (int j = 0; j < map[i].length; j++)
 				switch (newMap[j][i]) { // swap the x-axis and y-axis
 				case 0:
-					map[i][j] = new Tile(i * Game.TILE_SIZE, j * Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE,
+					map[i][j] = new Tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE,
 							TileType.Grass);
 					break;
 				case 1:
-					map[i][j] = new Tile(i * Game.TILE_SIZE, j * Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE,
+					map[i][j] = new Tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE,
 							TileType.Dirt);
 					break;
 				case 2:
-					map[i][j] = new Tile(i * Game.TILE_SIZE, j * Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE,
+					map[i][j] = new Tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE,
 							TileType.Water);
 					break;
 				}
 	}
 
 	public void setTile(int xCoord, int yCoord, TileType type) {
-		map[xCoord][yCoord] = new Tile(xCoord * Game.TILE_SIZE, yCoord * Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE,
+		map[xCoord][yCoord] = new Tile(xCoord * TILE_SIZE, yCoord * TILE_SIZE, TILE_SIZE, TILE_SIZE,
 				type);
 	}
 

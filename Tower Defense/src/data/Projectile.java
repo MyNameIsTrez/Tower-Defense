@@ -1,6 +1,8 @@
 package data;
 
-import static helpers.Artist.*;
+import static helpers.Artist.TILE_SIZE;
+import static helpers.Artist.checkCollision;
+import static helpers.Artist.drawQuadTex;
 import static helpers.Clock.delta;
 
 import org.newdawn.slick.opengl.Texture;
@@ -35,8 +37,8 @@ public class Projectile {
 	private void calculateDirection() {
 		// this can definitely be refactored to make more sense
 		float totalAllowedMovement = 1.0f; // xdir + ydir = 1
-		float xDistanceFromTarget = Math.abs(target.getX() + Game.TILE_SIZE / 4 - x);
-		float yDistanceFromTarget = Math.abs(target.getY() + Game.TILE_SIZE / 4 - y);
+		float xDistanceFromTarget = Math.abs(target.getX() + TILE_SIZE / 4 - x);
+		float yDistanceFromTarget = Math.abs(target.getY() + TILE_SIZE / 4 - y);
 		float totalDistanceFromTarget = xDistanceFromTarget + yDistanceFromTarget;
 		float xPercentOfMovement = xDistanceFromTarget / totalDistanceFromTarget;
 		xVelocity = xPercentOfMovement;
@@ -62,7 +64,7 @@ public class Projectile {
 	}
 
 	public void draw() {
-		drawQuadTex(texture, x, y, Game.TILE_SIZE / 2, Game.TILE_SIZE / 2);
+		drawQuadTex(texture, x, y, TILE_SIZE / 2, TILE_SIZE / 2);
 	}
 
 }
