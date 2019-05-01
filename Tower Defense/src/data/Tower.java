@@ -68,7 +68,7 @@ public abstract class Tower implements Entity {
 				drawQuadTexRot(textures[i], x, y, width, height, angle);
 	}
 
-	private Enemy acquireTarget() {
+	public Enemy acquireTarget() {
 		Enemy closest = null;
 		float closestDistance = 10000; // impossibly big number
 		for (Enemy e : enemyList)
@@ -101,10 +101,14 @@ public abstract class Tower implements Entity {
 		return (float) Math.toDegrees(angleTemp) - 90;
 	}
 
-	private void shoot() {
+	public void shoot() {
 //		The projectile gets centered on the tile with x + Game.TILE_SIZE / 4.
-		projectiles.add(new Projectile(quickLoad("bullet"), target, x + TILE_SIZE / 4, y + TILE_SIZE / 4, TILE_SIZE / 2,
-				TILE_SIZE / 2, 900, damage));
+		projectiles.add(new Projectile(quickLoad("bulletIce"), target, x + TILE_SIZE / 4, y + TILE_SIZE / 4,
+				TILE_SIZE / 2, TILE_SIZE / 2, 900, damage));
+	}
+
+	public Enemy getTarget() {
+		return target;
 	}
 
 	public void updateEnemyList(ArrayList<Enemy> newEnemyList) {
