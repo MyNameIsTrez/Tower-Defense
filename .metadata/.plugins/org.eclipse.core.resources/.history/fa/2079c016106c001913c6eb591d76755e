@@ -169,8 +169,6 @@ public class Enemy {
 	
 	public void damage(int amount) {
 		health -= amount;
-		if (health <= 0)
-			die();
 	}
 	
 	private void die() {

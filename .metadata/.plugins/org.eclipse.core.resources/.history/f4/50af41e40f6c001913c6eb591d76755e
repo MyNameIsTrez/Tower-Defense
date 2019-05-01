@@ -19,7 +19,7 @@ public class Enemy {
 	private ArrayList<Checkpoint> checkpoints;
 	private int[] directions;
 	
-	public Enemy(Texture texture, Tile startTile, TileGrid grid, int width, int height, float speed, int health) {
+	public Enemy(Texture texture, Tile startTile, TileGrid grid, int width, int height, float speed) {
 		this.texture = texture;
 		this.startTile = startTile;
 		this.grid = grid;
@@ -28,7 +28,6 @@ public class Enemy {
 		this.width = width;
 		this.height = height;
 		this.speed = speed;
-		this.health = health;
 		
 		this.checkpoints = new ArrayList<Checkpoint>();
 		this.directions = new int[2];
@@ -165,12 +164,6 @@ public class Enemy {
 		}
 		
 		return dir;
-	}
-	
-	public void damage(int amount) {
-		health -= amount;
-		if (health <= 0)
-			die();
 	}
 	
 	private void die() {

@@ -34,12 +34,13 @@ public class Wave {
 			}
 		}
 
-		for (Enemy e : enemyList)
+		for (Enemy e : enemyList) {
 			if (e.isAlive()) {
 				allEnemiesDead = false;
 				e.update();
 				e.draw();
 			}
+		}
 		
 		if (allEnemiesDead)
 			waveCompleted = true;

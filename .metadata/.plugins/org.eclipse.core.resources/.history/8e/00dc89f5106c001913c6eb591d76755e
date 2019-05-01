@@ -34,12 +34,13 @@ public class Wave {
 			}
 		}
 
-		for (Enemy e : enemyList)
+		for (Enemy e : enemyList) {
 			if (e.isAlive()) {
 				allEnemiesDead = false;
 				e.update();
 				e.draw();
 			}
+		}
 		
 		if (allEnemiesDead)
 			waveCompleted = true;
@@ -47,7 +48,7 @@ public class Wave {
 
 	public void spawn() {
 		enemyList.add(new Enemy(enemyType.getTexture(), enemyType.getStartTile(), enemyType.getTileGrid(), Game.TILE_SIZE, Game.TILE_SIZE,
-				enemyType.getSpeed(), enemyType.getHealth()));
+				enemyType.getSpeed()));
 	}
 
 	public boolean isCompleted() {
