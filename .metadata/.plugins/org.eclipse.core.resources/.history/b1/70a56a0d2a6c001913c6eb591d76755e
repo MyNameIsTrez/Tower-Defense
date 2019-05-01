@@ -31,7 +31,7 @@ public class TowerCannon {
 		this.y = startTile.getY();
 		this.width = startTile.getWidth();
 		this.height = startTile.getHeight();
-		this.rateOfFire = 1; // rounds/s
+		this.rateOfFire = 1;
 		this.timeSinceLastShot = 0;
 		this.projectiles = new ArrayList<Projectile>();
 		this.targeted = false;

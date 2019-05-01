@@ -1,23 +1,9 @@
 package data;
 
-import static helpers.Artist.drawQuadTex;
+public class Tower implements Entity {
 
-import org.newdawn.slick.opengl.Texture;
-
-public abstract class Tower implements Entity {
-
-	private Texture texture;
 	private float x, y;
-	private int width, height, damage;
-	private Enemy target;
-	
-	public Tower(Texture texture, float x, float y, int width, int height) {
-		this.texture = texture;
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-	}
+	private int width, height;
 
 	public float getX() {
 		return x;
@@ -56,7 +42,7 @@ public abstract class Tower implements Entity {
 	}
 
 	public void draw() {
-		drawQuadTex(texture, x, y, width, height);
+		
 	}
 	
 }
