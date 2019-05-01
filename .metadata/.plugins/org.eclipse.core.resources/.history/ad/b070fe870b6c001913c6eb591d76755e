@@ -1,6 +1,6 @@
 package data;
 
-import static helpers.Artist.*;
+import static helpers.Artist.drawQuadTex;
 import static helpers.Clock.delta;
 
 import org.newdawn.slick.opengl.Texture;
@@ -13,8 +13,7 @@ public class Projectile {
 	private Enemy target;
 	private boolean alive;
 
-	public Projectile(Texture texture, Enemy target, float x, float y, float width, float height, float speed,
-			int damage) {
+	public Projectile(Texture texture, Enemy target, float x, float y, float width, float height, float speed, int damage) {
 		this.texture = texture;
 		this.target = target;
 		this.x = x;
@@ -24,14 +23,14 @@ public class Projectile {
 		this.speed = speed;
 		this.damage = damage;
 		this.alive = true;
-
+		
 //		test what happens when '0f' is '0'
 		this.xVelocity = 0f;
 		this.yVelocity = 0f;
-
+		
 		calculateDirection();
 	}
-
+	
 	private void calculateDirection() {
 		// this can definitely be refactored to make more sense
 		float totalAllowedMovement = 1.0f; // xdir + ydir = 1
@@ -41,7 +40,7 @@ public class Projectile {
 		float xPercentOfMovement = xDistanceFromTarget / totalDistanceFromTarget;
 		xVelocity = xPercentOfMovement;
 		yVelocity = totalAllowedMovement - xPercentOfMovement;
-
+		
 		if (target.getX() < x)
 			xVelocity *= -1;
 		if (target.getY() < y)
@@ -49,14 +48,11 @@ public class Projectile {
 	}
 
 	public void update() {
-		if (alive) {
-			x += xVelocity * speed * delta();
-			y += yVelocity * speed * delta();
-			if (checkCollision(x, y, width, height, target.getX(), target.getY(), target.getWidth(),
-					target.getHeight()))
-				alive = false;
-			draw();
-		}
+		x += xVelocity * speed * delta();
+		y += yVelocity * speed * delta();
+		if(checkCollision(x, y, width, height, target.getX(), target.getY(), target.getWidth(), target.getHeight()))
+			System.out.println("Projectile hit it's target!");
+		draw();
 	}
 
 	public void draw() {

@@ -54,14 +54,6 @@ public class Artist {
 		return false;
 	}
 	
-
-//	public static boolean checkCollision(obj1, obj2) {
-//		if (obj1.getX() + obj1.getWidth() > obj2.getX() && obj1.getX() < obj2.getX() + obj2.getWidth() &&
-//				obj1.getY() + obj1.getHeight() > obj2.getY() && obj1.getY() < obj2.getY() + obj2.getHeight())
-//			return true;
-//		return false;
-//	}
-	
 	public static void drawQuadTex(Texture tex, float x, float y, float width, float height) {
 		tex.bind();
 		glTranslatef(x, y, 0);

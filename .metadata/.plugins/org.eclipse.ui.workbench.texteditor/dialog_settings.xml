@@ -8,10 +8,10 @@
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="enemyType"/>
 			<item value="start"/>
 			<item value="system"/>
 			<item value="system.out"/>
-			<item value="enemyType"/>
 			<item value="enemytype"/>
 			<item value="drawquad"/>
 		</list>
