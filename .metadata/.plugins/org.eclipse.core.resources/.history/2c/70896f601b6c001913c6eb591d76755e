@@ -17,7 +17,7 @@ public class TowerCannon {
 	private Enemy target;
 	private boolean targeted;
 	
-	public TowerCannon(Texture baseTexture, Tile startTile, int damage, int range, ArrayList<Enemy> enemyList) {
+	public TowerCannon(Texture baseTexture, int damage, int range, ArrayList<Enemy> enemyList) {
 		this.baseTexture = baseTexture;
 		this.damage = damage;
 		this.range = range;

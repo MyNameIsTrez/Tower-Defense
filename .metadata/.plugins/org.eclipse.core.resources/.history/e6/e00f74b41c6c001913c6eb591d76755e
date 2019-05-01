@@ -1,0 +1,48 @@
+package data;
+
+public class Tower implements Entity {
+
+	private float x, y;
+	private int width, height;
+
+	public float getX() {
+		return x;
+	}
+
+	public float getY() {
+		return y;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setX(float x) {
+		
+	}
+
+	public void setY(float y) {
+		
+	}
+
+	public void setWidth(int width) {
+		
+	}
+
+	public void setHeight(int height) {
+		
+	}
+
+	public void update() {
+		
+	}
+
+	public void draw() {
+		
+	}
+	
+}

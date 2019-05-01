@@ -7,7 +7,7 @@ import static helpers.Clock.*;
 
 import java.util.ArrayList;
 
-public class Enemy implements Entity {
+public class Enemy {
 
 	private int width, height, health, currentCheckpoint;
 	private float x, y, speed;

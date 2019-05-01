@@ -36,9 +36,7 @@ public class Player {
 
 //		Handle mouse input
 		if (Mouse.isButtonDown(0) && !leftMouseButtonDown) {
-			towerList.add(new TowerCannon(quickLoad("cannonBase"),
-					grid.getTile(Mouse.getX() / Game.TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / Game.TILE_SIZE), 10, 1000,
-					waveManager.getCurrentWave().getEnemyList()));
+			towerList.add(new TowerCannon(quickLoad("cannonBase"), 10, 1000, waveManager.getCurrentWave().getEnemyList()));
 		}
 
 		leftMouseButtonDown = Mouse.isButtonDown(0);
@@ -54,7 +52,7 @@ public class Player {
 					Clock.changeMultiplier(-0.1f);
 					break;
 				case Keyboard.KEY_T:
-					towerList.add(new TowerCannon(quickLoad("cannonBase"), grid.getTile(18, 9), 10, 1000,
+					towerList.add(new TowerCannon(quickLoad("cannonBase"), 10, 1000,
 							waveManager.getCurrentWave().getEnemyList()));
 					break;
 				}

@@ -12,6 +12,7 @@ public class TowerCannon {
 	private float x, y, timeSinceLastShot, rateOfFire, angle;
 	private int width, height, damage, range;
 	private Texture baseTexture, cannonTexture;
+	private Tile startTile;
 	private ArrayList<Projectile> projectiles;
 	private ArrayList<Enemy> enemyList;
 	private Enemy target;
@@ -19,6 +20,7 @@ public class TowerCannon {
 	
 	public TowerCannon(Texture baseTexture, Tile startTile, int damage, int range, ArrayList<Enemy> enemyList) {
 		this.baseTexture = baseTexture;
+		this.startTile = startTile;
 		this.damage = damage;
 		this.range = range;
 		this.enemyList = enemyList;
