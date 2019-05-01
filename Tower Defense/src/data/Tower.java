@@ -1,23 +1,114 @@
 package data;
 
+import static helpers.Artist.TILE_SIZE;
 import static helpers.Artist.drawQuadTex;
+import static helpers.Artist.drawQuadTexRot;
+import static helpers.Artist.quickLoad;
+import static helpers.Clock.delta;
+
+import java.util.ArrayList;
 
 import org.newdawn.slick.opengl.Texture;
 
 public abstract class Tower implements Entity {
 
 	private Texture[] textures;
-	private float x, y;
-	private int width, height, damage;
+	private float x, y, timeSinceLastShot, firingSpeed, angle;
+	private int width, height, damage, range;
 	private Enemy target;
-	
-	public Tower(TowerType type, Tile startTile) {
+	private ArrayList<Enemy> enemyList;
+	private boolean targeted;
+	private ArrayList<Projectile> projectiles;
+
+	public Tower(TowerType type, Tile startTile, ArrayList<Enemy> enemyList) {
 		this.textures = type.textures;
 		this.damage = type.damage;
+		this.range = type.range;
+		this.firingSpeed = type.firingSpeed;
+
 		this.x = startTile.getX();
 		this.y = startTile.getY();
 		this.width = startTile.getWidth();
 		this.height = startTile.getHeight();
+
+		this.enemyList = enemyList;
+		this.targeted = false;
+		this.timeSinceLastShot = 0f;
+		this.projectiles = new ArrayList<Projectile>();
+		this.angle = 0f;
+	}
+
+	public void update() {
+		if (target == null || target.isAlive() == false)
+			targeted = false;
+
+		if (!targeted) {
+			target = acquireTarget();
+		}
+
+		timeSinceLastShot += delta();
+		if (timeSinceLastShot > firingSpeed && target != null) {
+			shoot();
+			timeSinceLastShot = 0;
+		}
+
+		for (Projectile p : projectiles)
+			p.update();
+
+		if (target != null)
+			angle = calculateAngle();
+
+		draw();
+	}
+
+	public void draw() {
+		drawQuadTex(textures[0], x, y, width, height);
+		if (textures.length > 1)
+			for (int i = 1; i < textures.length; i++)
+				drawQuadTexRot(textures[i], x, y, width, height, angle);
+	}
+
+	private Enemy acquireTarget() {
+		Enemy closest = null;
+		float closestDistance = 10000; // impossibly big number
+		for (Enemy e : enemyList)
+			if (isInRange(e) && findDistance(e) < closestDistance && e.isAlive()) {
+				closestDistance = findDistance(e);
+				closest = e;
+			}
+		if (closest != null)
+			targeted = true;
+		return closest;
+	}
+
+	private boolean isInRange(Enemy e) {
+		float xDistance = Math.abs(e.getX() - x);
+		float yDistance = Math.abs(e.getY() - y);
+		if (xDistance < range && yDistance < range)
+			return true;
+		return false;
+	}
+
+	private float findDistance(Enemy e) {
+		float xDistance = Math.abs(e.getX() - x);
+		float yDistance = Math.abs(e.getY() - y);
+		return xDistance + yDistance; // Shouldn't this use Pythagorean theorem instead for the total pixels away the
+										// enemy is from the tower?
+	}
+
+	private float calculateAngle() {
+		double angleTemp = Math.atan2(target.getY() - y, target.getX() - x);
+		return (float) Math.toDegrees(angleTemp) - 90;
+	}
+
+	private void shoot() {
+//		The projectile gets centered on the tile with x + Game.TILE_SIZE / 4.
+		projectiles.add(new Projectile(quickLoad("bullet"), target, x + TILE_SIZE / 4, y + TILE_SIZE / 4, TILE_SIZE / 2,
+				TILE_SIZE / 2, 900, damage));
+	}
+
+	public void updateEnemyList(ArrayList<Enemy> newEnemyList) {
+		enemyList = newEnemyList;
 	}
 
 	public float getX() {
@@ -52,13 +143,4 @@ public abstract class Tower implements Entity {
 		this.height = height;
 	}
 
-	public void update() {
-		
-	}
-
-	public void draw() {
-		for (int i = 0; i < textures.length; i++)
-			drawQuadTex(textures[i], x, y, width, height);
-	}
-	
 }

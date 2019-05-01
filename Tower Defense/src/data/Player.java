@@ -2,7 +2,6 @@ package data;
 
 import static helpers.Artist.HEIGHT;
 import static helpers.Artist.TILE_SIZE;
-import static helpers.Artist.quickLoad;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ public class Player {
 	private TileType[] types;
 	private WaveManager waveManager;
 	private ArrayList<Tower> towerList;
-	private boolean leftMouseButtonDown;
+	private boolean leftMouseButtonDown, rightMouseButtonDown;
 
 	public Player(TileGrid grid, WaveManager waveManager) {
 		this.grid = grid;
@@ -28,21 +27,29 @@ public class Player {
 		this.waveManager = waveManager;
 		this.towerList = new ArrayList<Tower>();
 		this.leftMouseButtonDown = false;
+		this.rightMouseButtonDown = false;
 	}
 
 	public void update() {
 		for (Tower t : towerList) {
-//			t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
+			t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
 			t.update();
 			t.draw();
 		}
 
 //		Handle mouse input
 		if (Mouse.isButtonDown(0) && !leftMouseButtonDown) {
-			towerList.add(new TowerCannonBlue(TowerType.CannonBlue, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE)));
+			towerList.add(new TowerCannonBlue(TowerType.CannonBlue,
+					grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
+		}
+		
+		if (Mouse.isButtonDown(1) && !rightMouseButtonDown) {
+			towerList.add(new TowerCannonBlue(TowerType.CannonRed,
+					grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
 		}
 
 		leftMouseButtonDown = Mouse.isButtonDown(0);
+		rightMouseButtonDown = Mouse.isButtonDown(1);
 
 //		Handle keyboard input
 		while (Keyboard.next()) { // if the key is pressed/released

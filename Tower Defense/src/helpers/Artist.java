@@ -68,7 +68,7 @@ public class Artist {
 //		return false;
 //	}
 	
-	public static void drawQuadTex(Texture tex, float x, float y, float width, float height) {
+	public static void drawQuadTex(Texture tex, float x, float y, int width, int height) {
 		tex.bind();
 		glTranslatef(x, y, 0);
 		
@@ -86,7 +86,7 @@ public class Artist {
 		glLoadIdentity();
 	}
 	
-	public static void drawQuadTexRot(Texture tex, float x, float y, float width, float height, float angle) {
+	public static void drawQuadTexRot(Texture tex, float x, float y, int width, int height, float angle) {
 		tex.bind();
 		glTranslatef(x + width / 2, y + height / 2, 0);
 		glRotatef(angle, 0, 0, 1);
