@@ -32,8 +32,8 @@ public class Player {
 
 	public void update() {
 		for (TowerCannon t : towerList) {
-			t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
 			t.update();
+			t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
 		}
 
 //		Handle mouse input

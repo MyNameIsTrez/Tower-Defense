@@ -88,7 +88,7 @@ public class TowerCannon {
 		}
 		
 		timeSinceLastShot += delta();
-		if (timeSinceLastShot > rateOfFire && target != null) {
+		if (timeSinceLastShot > rateOfFire) {
 			shoot();
 			timeSinceLastShot = 0;
 		}
@@ -96,8 +96,7 @@ public class TowerCannon {
 		for (Projectile p : projectiles)
 			p.update();
 		
-		if (target != null)
-			angle = calculateAngle();
+		angle = calculateAngle();
 
 		Draw();
 	}

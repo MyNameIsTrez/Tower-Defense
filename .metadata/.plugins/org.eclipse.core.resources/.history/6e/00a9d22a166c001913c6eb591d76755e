@@ -29,17 +29,20 @@ public class Player {
 		this.towerList = new ArrayList<TowerCannon>();
 		this.leftMouseButtonDown = false;
 	}
+	
+	public void updateEnemyLists(ArrayList<Enemy> newEnemyList) {
+		for (TowerCannon t : towerList)
+			t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
+	}
 
 	public void update() {
-		for (TowerCannon t : towerList) {
-			t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
+		for (TowerCannon t : towerList)
 			t.update();
-		}
 
 //		Handle mouse input
 		if (Mouse.isButtonDown(0) && !leftMouseButtonDown) {
 			towerList.add(new TowerCannon(quickLoad("cannonBase"),
-					grid.getTile(Mouse.getX() / Game.TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / Game.TILE_SIZE), 10, 1000,
+					grid.getTile(Mouse.getX() / Game.TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / Game.TILE_SIZE), 10, 1000, 
 					waveManager.getCurrentWave().getEnemyList()));
 		}
 

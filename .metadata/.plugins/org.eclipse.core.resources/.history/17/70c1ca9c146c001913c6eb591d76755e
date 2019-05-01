@@ -33,21 +33,19 @@ public class TowerCannon {
 		this.rateOfFire = 1;
 		this.timeSinceLastShot = 0;
 		this.projectiles = new ArrayList<Projectile>();
+		this.target = acquireTarget();
 		this.targeted = false;
-//		this.target = acquireTarget();
-//		this.angle = calculateAngle();
+		this.angle = calculateAngle();
 	}
 	
 	private Enemy acquireTarget() {
 		Enemy closest = null;
 		float closestDistance = 10000; // impossibly big number
 		for (Enemy e : enemyList)
-			if (isInRange(e) && findDistance(e) < closestDistance && e.isAlive()) {
+			if (isInRange(e) && findDistance(e) < closestDistance) {
 				closestDistance = findDistance(e);
 				closest = e;
 			}
-		if (closest != null)
-			targeted = true;
 		return closest;
 	}
 	
@@ -75,20 +73,9 @@ public class TowerCannon {
 		projectiles.add(new Projectile(quickLoad("bullet"), target, x + Game.TILE_SIZE / 4, y + Game.TILE_SIZE / 4, Game.TILE_SIZE / 2, Game.TILE_SIZE / 2, 900, 10));
 	}
 	
-	public void updateEnemyList(ArrayList<Enemy> newEnemyList) {
-		enemyList = newEnemyList;
-	}
-	
 	public void update() {
-		if (target == null || target.isAlive() == false)
-			targeted = false;
-		
-		if (!targeted) {
-			target = acquireTarget();
-		}
-		
 		timeSinceLastShot += delta();
-		if (timeSinceLastShot > rateOfFire && target != null) {
+		if (timeSinceLastShot > rateOfFire) {
 			shoot();
 			timeSinceLastShot = 0;
 		}
@@ -96,8 +83,7 @@ public class TowerCannon {
 		for (Projectile p : projectiles)
 			p.update();
 		
-		if (target != null)
-			angle = calculateAngle();
+		angle = calculateAngle();
 
 		Draw();
 	}

@@ -42,7 +42,7 @@ public class TowerCannon {
 		Enemy closest = null;
 		float closestDistance = 10000; // impossibly big number
 		for (Enemy e : enemyList)
-			if (isInRange(e) && findDistance(e) < closestDistance && e.isAlive()) {
+			if (isInRange(e) && findDistance(e) < closestDistance) {
 				closestDistance = findDistance(e);
 				closest = e;
 			}
@@ -80,15 +80,11 @@ public class TowerCannon {
 	}
 	
 	public void update() {
-		if (target == null || target.isAlive() == false)
-			targeted = false;
-		
-		if (!targeted) {
+		if (!targeted)
 			target = acquireTarget();
-		}
 		
 		timeSinceLastShot += delta();
-		if (timeSinceLastShot > rateOfFire && target != null) {
+		if (timeSinceLastShot > rateOfFire) {
 			shoot();
 			timeSinceLastShot = 0;
 		}
@@ -96,8 +92,7 @@ public class TowerCannon {
 		for (Projectile p : projectiles)
 			p.update();
 		
-		if (target != null)
-			angle = calculateAngle();
+		angle = calculateAngle();
 
 		Draw();
 	}
