@@ -57,8 +57,7 @@ public abstract class Tower implements Entity {
 	}
 
 	public void draw() {
-		for (int i = 0; i < textures.length; i++)
-			drawQuadTex(textures[i], x, y, width, height);
+		drawQuadTex(texture, x, y, width, height);
 	}
 	
 }

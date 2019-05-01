@@ -12,8 +12,7 @@ public abstract class Tower implements Entity {
 	private Enemy target;
 	
 	public Tower(TowerType type, Tile startTile) {
-		this.textures = type.textures;
-		this.damage = type.damage;
+		this.texture[] = type.textures;
 		this.x = startTile.getX();
 		this.y = startTile.getY();
 		this.width = startTile.getWidth();
@@ -57,8 +56,7 @@ public abstract class Tower implements Entity {
 	}
 
 	public void draw() {
-		for (int i = 0; i < textures.length; i++)
-			drawQuadTex(textures[i], x, y, width, height);
+		drawQuadTex(texture, x, y, width, height);
 	}
 	
 }

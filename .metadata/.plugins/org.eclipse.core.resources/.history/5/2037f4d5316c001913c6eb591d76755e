@@ -1,0 +1,13 @@
+package data;
+
+import org.newdawn.slick.opengl.Texture;
+import static helpers.Artist.quickLoad;
+
+public enum TowerType {
+	
+	CannonRed(quickLoad("cannonBase"), 10);
+
+	Texture texture;
+	int damage;
+
+}

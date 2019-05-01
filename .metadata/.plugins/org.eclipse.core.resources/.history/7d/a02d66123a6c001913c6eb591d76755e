@@ -39,7 +39,7 @@ public class Player {
 
 //		Handle mouse input
 		if (Mouse.isButtonDown(0) && !leftMouseButtonDown) {
-			towerList.add(new TowerCannonBlue(TowerType.CannonBlue, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE)));
+			towerList.add(new TowerCannonBlue(TowerType.CannonRed, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE)));
 		}
 
 		leftMouseButtonDown = Mouse.isButtonDown(0);
