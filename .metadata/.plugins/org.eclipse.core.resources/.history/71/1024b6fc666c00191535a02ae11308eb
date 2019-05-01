@@ -1,8 +1,6 @@
 package data;
 
-import static helpers.Artist.TILE_SIZE;
 import static helpers.Artist.drawQuadTex;
-import static helpers.Artist.quickLoad;
 import static helpers.Clock.delta;
 
 import java.util.ArrayList;
@@ -11,21 +9,18 @@ import org.newdawn.slick.opengl.Texture;
 
 public class Enemy implements Entity {
 
-	private int width, height, currentCheckpoint;
-	private float x, y, speed, health, startHealth;
+	private int width, height, health, currentCheckpoint;
+	private float x, y, speed;
 	private Texture texture, healthBackground, healthForeground, healthBorder;
 	private Tile startTile;
 	private boolean first = true, alive = true;
 	private TileGrid grid;
-
+	
 	private ArrayList<Checkpoint> checkpoints;
 	private int[] directions;
-
-	public Enemy(Texture texture, Tile startTile, TileGrid grid, int width, int height, float speed, float health) {
+	
+	public Enemy(Texture texture, Tile startTile, TileGrid grid, int width, int height, float speed, int health) {
 		this.texture = texture;
-		this.healthBackground = quickLoad("healthBackground");
-		this.healthForeground = quickLoad("healthForeground");
-		this.healthBorder = quickLoad("healthBorder");
 		this.startTile = startTile;
 		this.grid = grid;
 		this.x = startTile.getX();
@@ -34,8 +29,7 @@ public class Enemy implements Entity {
 		this.height = height;
 		this.speed = speed;
 		this.health = health;
-		this.startHealth = health;
-
+		
 		this.checkpoints = new ArrayList<Checkpoint>();
 		this.directions = new int[2];
 //		X direction
@@ -46,7 +40,7 @@ public class Enemy implements Entity {
 		this.currentCheckpoint = 0;
 		populateCheckpointList();
 	}
-
+	
 	public void update() {
 		if (first)
 			first = false;
@@ -66,35 +60,38 @@ public class Enemy implements Entity {
 			}
 		}
 	}
-
+	
 	private boolean checkpointReached() {
 		boolean reached = false;
-
+		
 //		Get the tile of the current checkpoint.
 		Tile t = checkpoints.get(currentCheckpoint).getTile();
-
+		
 //		If the enemy is within a box a little larger than the size of the checkpoint tile.
 //		This should probably be rewritten, as I think it can cause bugs in edge cases (haha).
-		if (x > t.getX() - 3 && x < t.getX() + 3 && y > t.getY() - 3 && y < t.getY() + 3) {
-
+		if (x > t.getX() - 3 &&
+				x < t.getX() + 3 &&
+				y > t.getY() - 3 &&
+				y < t.getY() + 3) {
+			
 			reached = true;
 			x = t.getX();
 			y = t.getY();
 		}
-
+		
 		return reached;
 	}
-
+	
 	private void populateCheckpointList() {
 //		Add the first checkpoint from the starting tile.
 		checkpoints.add(findNextCheckpoint(startTile, directions = findNextDirections(startTile)));
-
+		
 		int counter = 0;
 		boolean loop = true;
 		while (loop) {
 //			Look at the currentDirections from a checkpoint.
 			int[] currentDirections = findNextDirections(checkpoints.get(counter).getTile());
-
+			
 //			If the enemy has nowhere to go, stop adding checkpoints.
 //			If 20 checkpoints are checked, stop. (20 is arbitrary)
 			if (currentDirections[0] == 2 || counter == 20) {
@@ -102,49 +99,48 @@ public class Enemy implements Entity {
 			} else { // Add the checkpoint.
 //				This keeps track of a tile from a checkpoint, that's gotten using the counter.
 				Tile currentCheckpointTile = checkpoints.get(counter).getTile();
-
+				
 //				Add the next checkpoint based on the currentCheckpointTile and the directions you can go from currentCheckpointTile.
-				checkpoints.add(findNextCheckpoint(currentCheckpointTile,
-						directions = findNextDirections(currentCheckpointTile)));
+				checkpoints.add(findNextCheckpoint(currentCheckpointTile, directions = findNextDirections(currentCheckpointTile)));
 			}
-
+			
 			counter++;
 		}
 	}
-
+	
 	private Checkpoint findNextCheckpoint(Tile start, int[] dir) {
 		Tile next = null;
 		Checkpoint checkpoint = null;
-
+		
 //		Boolean to decide if the next checkpoint is found.
 		boolean found = false;
-
+		
 //		Integer to increment each loop.
 		int counter = 1;
-
+		
 		while (!found) {
 //			If the tile we're looking at is outside of the grid or if it's not the same type as the start tile.
 			boolean outsideGridX = start.getXTile() + dir[0] * counter == grid.getTilesWide();
 			boolean outsideGridY = start.getYTile() + dir[1] * counter == grid.getTilesHigh();
-			boolean differentType = start.getType() != grid
-					.getTile(start.getXTile() + dir[0] * counter, start.getYTile() + dir[1] * counter).getType();
-			if (outsideGridX || outsideGridY || differentType) {
+			boolean differentType = start.getType() != grid.getTile(start.getXTile() + dir[0] * counter, start.getYTile() + dir[1] * counter).getType();
+			if (outsideGridX ||	outsideGridY ||	differentType) {
 				found = true;
 //				Move the counter back, so we can look at the previous tile where we have to turn.
 				counter--;
-				next = grid.getTile(start.getXTile() + dir[0] * counter, start.getYTile() + dir[1] * counter);
+				next = grid.getTile(start.getXTile() + dir[0] * counter,
+						start.getYTile() + dir[1] * counter);
 			}
-
+			
 			counter++;
 		}
-
+		
 		checkpoint = new Checkpoint(next, dir);
 		return checkpoint;
 	}
-
+	
 	private int[] findNextDirections(Tile start) {
 		int[] dir = new int[2];
-
+		
 //		Get the tiles up, right, down and left of the start tile.
 		Tile up = grid.getTile(start.getXTile(), start.getYTile() - 1);
 		Tile right = grid.getTile(start.getXTile() + 1, start.getYTile());
@@ -172,27 +168,22 @@ public class Enemy implements Entity {
 			dir[0] = 2;
 			dir[1] = 2;
 		}
-
+		
 		return dir;
 	}
-
+	
 	public void damage(int amount) {
 		health -= amount;
 		if (health <= 0)
 			die();
 	}
-
+	
 	private void die() {
 		alive = false;
 	}
-
+	
 	public void draw() {
 		drawQuadTex(texture, x, y, width, height);
-
-		float healthPercentage = health / startHealth;
-		drawQuadTex(healthBackground, x, y - TILE_SIZE / 4, width, TILE_SIZE / 8);
-		drawQuadTex(healthForeground, x, y - TILE_SIZE / 4, (int) (width * healthPercentage), TILE_SIZE / 8);
-		drawQuadTex(healthBorder, x, y - TILE_SIZE / 4, width, TILE_SIZE / 8);
 	}
 
 	public int getWidth() {
@@ -211,7 +202,7 @@ public class Enemy implements Entity {
 		this.height = height;
 	}
 
-	public float getHealth() {
+	public int getHealth() {
 		return health;
 	}
 
@@ -266,13 +257,13 @@ public class Enemy implements Entity {
 	public void setFirst(boolean first) {
 		this.first = first;
 	}
-
+	
 	public TileGrid getTileGrid() {
 		return grid;
 	}
-
+	
 	public boolean isAlive() {
 		return alive;
 	}
-
+	
 }

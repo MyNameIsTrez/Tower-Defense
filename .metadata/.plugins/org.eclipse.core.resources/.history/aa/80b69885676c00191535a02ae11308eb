@@ -1,6 +1,5 @@
 package data;
 
-import static helpers.Artist.TILE_SIZE;
 import static helpers.Artist.drawQuadTex;
 import static helpers.Artist.quickLoad;
 import static helpers.Clock.delta;
@@ -11,8 +10,8 @@ import org.newdawn.slick.opengl.Texture;
 
 public class Enemy implements Entity {
 
-	private int width, height, currentCheckpoint;
-	private float x, y, speed, health, startHealth;
+	private int width, height, health, currentCheckpoint;
+	private float x, y, speed;
 	private Texture texture, healthBackground, healthForeground, healthBorder;
 	private Tile startTile;
 	private boolean first = true, alive = true;
@@ -21,7 +20,7 @@ public class Enemy implements Entity {
 	private ArrayList<Checkpoint> checkpoints;
 	private int[] directions;
 
-	public Enemy(Texture texture, Tile startTile, TileGrid grid, int width, int height, float speed, float health) {
+	public Enemy(Texture texture, Tile startTile, TileGrid grid, int width, int height, float speed, int health) {
 		this.texture = texture;
 		this.healthBackground = quickLoad("healthBackground");
 		this.healthForeground = quickLoad("healthForeground");
@@ -34,7 +33,6 @@ public class Enemy implements Entity {
 		this.height = height;
 		this.speed = speed;
 		this.health = health;
-		this.startHealth = health;
 
 		this.checkpoints = new ArrayList<Checkpoint>();
 		this.directions = new int[2];
@@ -188,11 +186,10 @@ public class Enemy implements Entity {
 
 	public void draw() {
 		drawQuadTex(texture, x, y, width, height);
-
-		float healthPercentage = health / startHealth;
-		drawQuadTex(healthBackground, x, y - TILE_SIZE / 4, width, TILE_SIZE / 8);
-		drawQuadTex(healthForeground, x, y - TILE_SIZE / 4, (int) (width * healthPercentage), TILE_SIZE / 8);
-		drawQuadTex(healthBorder, x, y - TILE_SIZE / 4, width, TILE_SIZE / 8);
+		
+		drawQuadTex(healthBackground, x, y, width, height);
+		drawQuadTex(healthForeground, x, y, width, height);
+		drawQuadTex(healthBorder, x, y, width, height);
 	}
 
 	public int getWidth() {
@@ -211,7 +208,7 @@ public class Enemy implements Entity {
 		this.height = height;
 	}
 
-	public float getHealth() {
+	public int getHealth() {
 		return health;
 	}
 

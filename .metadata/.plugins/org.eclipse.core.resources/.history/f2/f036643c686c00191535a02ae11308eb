@@ -1,6 +1,5 @@
 package data;
 
-import static helpers.Artist.TILE_SIZE;
 import static helpers.Artist.drawQuadTex;
 import static helpers.Artist.quickLoad;
 import static helpers.Clock.delta;
@@ -188,11 +187,11 @@ public class Enemy implements Entity {
 
 	public void draw() {
 		drawQuadTex(texture, x, y, width, height);
-
+		
 		float healthPercentage = health / startHealth;
-		drawQuadTex(healthBackground, x, y - TILE_SIZE / 4, width, TILE_SIZE / 8);
-		drawQuadTex(healthForeground, x, y - TILE_SIZE / 4, (int) (width * healthPercentage), TILE_SIZE / 8);
-		drawQuadTex(healthBorder, x, y - TILE_SIZE / 4, width, TILE_SIZE / 8);
+		drawQuadTex(healthBackground, x, y, width, height);
+		drawQuadTex(healthForeground, x, y, width, height);
+		drawQuadTex(healthBorder, x, y, width, height);
 	}
 
 	public int getWidth() {

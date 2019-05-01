@@ -189,8 +189,8 @@ public class Enemy implements Entity {
 	public void draw() {
 		drawQuadTex(texture, x, y, width, height);
 
-		float healthPercentage = health / startHealth;
 		drawQuadTex(healthBackground, x, y - TILE_SIZE / 4, width, TILE_SIZE / 8);
+		float healthPercentage = health / startHealth;
 		drawQuadTex(healthForeground, x, y - TILE_SIZE / 4, (int) (width * healthPercentage), TILE_SIZE / 8);
 		drawQuadTex(healthBorder, x, y - TILE_SIZE / 4, width, TILE_SIZE / 8);
 	}
