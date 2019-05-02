@@ -6,8 +6,8 @@ import org.newdawn.slick.opengl.Texture;
 
 public enum TowerType {
 
-	Cannon(new Texture[] { quickLoad("towerBaseCannon"), quickLoad("towerGunCannon") }, 10, 150, 1, 45),
-	Ice(new Texture[] { quickLoad("towerBaseIce"), quickLoad("towerGunIce") }, 3, 150, 3, 105);
+	Cannon(new Texture[] { quickLoad("towerBaseCannon"), quickLoad("towerGunCannon") }, 10, 250, 1, 45),
+	Ice(new Texture[] { quickLoad("towerBaseIce"), quickLoad("towerGunIce") }, 3, 400, 3, 105);
 
 	Texture[] textures;
 	int damage, range;

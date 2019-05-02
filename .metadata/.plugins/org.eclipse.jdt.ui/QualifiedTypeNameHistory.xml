@@ -30,4 +30,7 @@
 <fullyQualifiedTypeName name="helpers.Artist"/>
 <fullyQualifiedTypeName name="data.Tile"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="data.Player"/>
+<fullyQualifiedTypeName name="data.WaveManager"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
 </qualifiedTypeNameHistroy>

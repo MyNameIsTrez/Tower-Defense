@@ -39,7 +39,7 @@ public class Player {
 		if (Cash + amount >= 0) { // If you can afford it.
 			return true;
 		}
-		System.out.println("You don't have $" + Math.abs(amount) + "!");
+		System.out.println("You can't afford $" + Math.abs(amount) + "!");
 		return false;
 	}
 
