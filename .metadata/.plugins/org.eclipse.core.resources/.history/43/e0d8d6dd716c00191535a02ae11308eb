@@ -1,0 +1,106 @@
+package data;
+
+import static helpers.Artist.HEIGHT;
+import static helpers.Artist.TILE_SIZE;
+
+import java.util.ArrayList;
+
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+
+import helpers.Clock;
+
+public class Player {
+
+	private TileGrid grid;
+	private TileType[] types;
+	private WaveManager waveManager;
+	private ArrayList<Tower> towerList;
+	private boolean leftMouseButtonDown, rightMouseButtonDown;
+	public static int Cash, Lives;
+
+	public Player(TileGrid grid, WaveManager waveManager) {
+		this.grid = grid;
+		this.types = new TileType[3];
+		this.types[0] = TileType.Grass;
+		this.types[1] = TileType.Dirt;
+		this.types[2] = TileType.Water;
+		this.waveManager = waveManager;
+		this.towerList = new ArrayList<Tower>();
+		this.leftMouseButtonDown = false;
+		this.rightMouseButtonDown = false;
+//		Cash = 0;
+//		Lives = 0;
+	}
+
+	public void setup() {
+		Cash = 50;
+		Lives = 10;
+	}
+
+	public static boolean checkModifyCash(int amount) {
+		if (Cash + amount >= 0) { // if you can afford it
+			System.out.println(Cash);
+			return true;
+		}
+		System.out.println("Not enough cash, you've only got " + Cash + "!");
+		return false;
+	}
+
+	public static void modifyCash(int amount) {
+		Cash += amount;
+		if (amount < 0)
+			System.out.println(amount + ", " + Cash);
+		else
+			System.out.println("+" + amount + ", " + Cash);
+	}
+
+	public static void modifyLives(int amount) {
+		Lives += amount;
+		if (Lives <= 0)
+			System.out.println("You've died!");
+	}
+
+	public void update() {
+		for (Tower t : towerList) {
+			t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
+			t.update();
+			t.draw();
+		}
+
+//		Handle mouse input
+		if (Mouse.isButtonDown(0) && !leftMouseButtonDown && checkModifyCash(-TowerType.CannonBullet.cost))
+			if (grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE).getType().buildable) {
+				towerList.add(new TowerCannon(TowerType.CannonBullet,
+						grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE),
+						waveManager.getCurrentWave().getEnemyList()));
+				modifyCash(-TowerType.CannonBullet.cost);
+			}
+
+		if (Mouse.isButtonDown(1) && !rightMouseButtonDown && checkModifyCash(-TowerType.CannonIce.cost))
+			if (grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE).getType().buildable) {
+				towerList.add(new TowerIce(TowerType.CannonIce,
+						grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE),
+						waveManager.getCurrentWave().getEnemyList()));
+				modifyCash(-TowerType.CannonBullet.cost);
+			}
+
+		leftMouseButtonDown = Mouse.isButtonDown(0);
+		rightMouseButtonDown = Mouse.isButtonDown(1);
+
+//		Handle keyboard input
+		while (Keyboard.next()) { // if the key is pressed/released
+			if (Keyboard.getEventKeyState()) { // if the key is pressed
+				switch (Keyboard.getEventKey()) {
+				case Keyboard.KEY_RIGHT:
+					Clock.changeMultiplier(0.1f);
+					break;
+				case Keyboard.KEY_LEFT:
+					Clock.changeMultiplier(-0.1f);
+					break;
+				}
+			}
+		}
+	}
+
+}

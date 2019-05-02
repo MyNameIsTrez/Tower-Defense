@@ -41,9 +41,10 @@ public abstract class Tower implements Entity {
 	public void update() {
 		if (target == null || target.isAlive() == false)
 			targeted = false;
-
+		
+//		gets the closest target and locks onto it; commenting this out lets it continuously target for the newest closest enemy
 		if (!targeted) {
-			System.out.println("target is null");
+//			System.out.println("target is null");
 			target = acquireTarget();
 		}
 

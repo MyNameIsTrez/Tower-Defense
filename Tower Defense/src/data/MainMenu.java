@@ -1,5 +1,7 @@
 package data;
 
+import static data.Player.leftMouseButtonDown;
+import static data.Player.rightMouseButtonDown;
 import static helpers.Artist.HEIGHT;
 import static helpers.Artist.WIDTH;
 import static helpers.Artist.drawQuadTex;
@@ -33,6 +35,9 @@ public class MainMenu {
 				StateManager.setState(GameState.EDITOR);
 			if (menuUI.isButtonClicked("Quit"))
 				System.exit(0);
+
+			leftMouseButtonDown = Mouse.isButtonDown(0);
+			rightMouseButtonDown = Mouse.isButtonDown(1);
 		}
 	}
 	

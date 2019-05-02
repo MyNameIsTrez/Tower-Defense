@@ -6,18 +6,20 @@ import org.newdawn.slick.opengl.Texture;
 
 public enum TowerType {
 
-	CannonBullet(new Texture[] { quickLoad("cannonBaseBullet"), quickLoad("cannonGunBullet") }, 10, 500, 1),
-	CannonIce(new Texture[] { quickLoad("cannonBaseIce"), quickLoad("cannonGunIce") }, 3, 1000, 3);
+	Cannon(new Texture[] { quickLoad("towerBaseCannon"), quickLoad("towerGunCannon") }, 10, 500, 1, 45),
+	Ice(new Texture[] { quickLoad("towerBaseIce"), quickLoad("towerGunIce") }, 3, 1000, 3, 105);
 
 	Texture[] textures;
 	int damage, range;
 	float firingSpeed;
+	int cost;
 
-	TowerType(Texture[] textures, int damage, int range, float firingSpeed) {
+	TowerType(Texture[] textures, int damage, int range, float firingSpeed, int cost) {
 		this.textures = textures;
 		this.damage = damage;
 		this.range = range;
 		this.firingSpeed = firingSpeed;
+		this.cost = cost;
 	}
 
 }

@@ -1,6 +1,7 @@
 package data;
 
 import static helpers.Artist.TILE_SIZE;
+import static data.WaveManager.waveNumber;
 import static helpers.Clock.delta;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class Wave {
 	public Wave(Enemy enemyType, float spawnTime, int enemiesPerWave) {
 		this.enemyType = enemyType;
 		this.spawnTime = spawnTime;
-		this.enemiesPerWave = enemiesPerWave;
+		this.enemiesPerWave = enemiesPerWave + waveNumber;
 
 		this.waveCompleted = false;
 		this.timeSinceLastSpawn = 0;
@@ -49,7 +50,7 @@ public class Wave {
 
 	public void spawn() {
 		enemyList.add(new Enemy(enemyType.getTexture(), enemyType.getStartTile(), enemyType.getTileGrid(), TILE_SIZE, TILE_SIZE,
-				enemyType.getSpeed(), enemyType.getHealth()));
+				enemyType.getSpeed(), enemyType.getHealth() * waveNumber));
 	}
 
 	public boolean isCompleted() {

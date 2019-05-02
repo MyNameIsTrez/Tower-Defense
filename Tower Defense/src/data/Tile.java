@@ -8,45 +8,44 @@ import org.newdawn.slick.opengl.Texture;
 
 public class Tile {
 
-	private float x, y;
-	private int width, height;
+	private int x, y, width, height;
 	private Texture texture;
 	private TileType type;
-	
-	public Tile(float x, float y, int width, int height, TileType type) {
+
+	public Tile(int x, int y, TileType type) {
 		this.x = x;
 		this.y = y;
-		this.width = width;
-		this.height = height;
+		this.width = TILE_SIZE;
+		this.height = TILE_SIZE;
 		this.type = type;
 		this.texture = quickLoad(type.textureName);
 	}
-	
+
 	public void draw() {
 		drawQuadTex(texture, x, y, width, height);
 	}
 
-	public float getX() {
+	public int getX() {
 		return x;
 	}
-	
+
 	public int getXTile() {
-		return (int) x / TILE_SIZE;
-	}
-	
-	public int getYTile() {
-		return (int) y / TILE_SIZE;
+		return x / TILE_SIZE;
 	}
 
-	public void setX(float x) {
+	public int getYTile() {
+		return y / TILE_SIZE;
+	}
+
+	public void setX(int x) {
 		this.x = x;
 	}
 
-	public float getY() {
+	public int getY() {
 		return y;
 	}
 
-	public void setY(float y) {
+	public void setY(int y) {
 		this.y = y;
 	}
 
@@ -81,5 +80,5 @@ public class Tile {
 	public void setType(TileType type) {
 		this.type = type;
 	}
-	
+
 }
