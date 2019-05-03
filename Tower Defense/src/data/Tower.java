@@ -1,12 +1,11 @@
 package data;
 
-import static helpers.Artist.TILE_SIZE;
 import static helpers.Artist.drawQuadTex;
 import static helpers.Artist.drawQuadTexRot;
-import static helpers.Artist.quickLoad;
 import static helpers.Clock.delta;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.newdawn.slick.opengl.Texture;
 
@@ -16,11 +15,13 @@ public abstract class Tower implements Entity {
 	public float x, y, timeSinceLastShot, firingSpeed, angle;
 	public int width, height, damage, range;
 	public Enemy target;
-	public ArrayList<Enemy> enemyList;
+	public CopyOnWriteArrayList<Enemy> enemyList;
 	public boolean targeted;
 	public ArrayList<Projectile> projectiles;
+	public TowerType type;
 
-	public Tower(TowerType type, Tile startTile, ArrayList<Enemy> enemyList) {
+	public Tower(TowerType type, Tile startTile, CopyOnWriteArrayList<Enemy> enemyList) {
+		this.type = type;
 		this.textures = type.textures;
 		this.damage = type.damage;
 		this.range = type.range;
@@ -39,26 +40,22 @@ public abstract class Tower implements Entity {
 	}
 
 	public void update() {
-		if (target == null || target.isAlive() == false)
-			targeted = false;
-		
-//		gets the closest target and locks onto it; commenting this out lets it continuously target for the newest closest enemy
-		if (!targeted) {
-//			System.out.println("target is null");
-			target = acquireTarget();
+		checkForTarget();
+
+		if (targeted) {
+			angle = calculateAngle();
+			timeSinceLastShot += delta();
+			if (timeSinceLastShot > firingSpeed) {
+				shoot(target);
+				timeSinceLastShot = 0;
+			}
 		}
 
-		timeSinceLastShot += delta();
-		if (timeSinceLastShot > firingSpeed && target != null) {
-			shoot();
-			timeSinceLastShot = 0;
-		}
+		if (target == null || target.isAlive() == false)
+			targeted = false;
 
 		for (Projectile p : projectiles)
 			p.update();
-
-		if (target != null)
-			angle = calculateAngle();
 
 		draw();
 	}
@@ -70,11 +67,18 @@ public abstract class Tower implements Entity {
 				drawQuadTexRot(textures[i], x, y, width, height, angle);
 	}
 
+	public void checkForTarget() {
+//		gets the closest target and locks onto it; commenting this out lets it continuously target for the newest closest enemy
+		if (!targeted) {
+			target = acquireTarget();
+		}
+	}
+
 	public Enemy acquireTarget() {
 		Enemy closest = null;
 		float closestDistance = 10000; // impossibly big number
 		for (Enemy e : enemyList)
-			if (isInRange(e) && findDistance(e) < closestDistance && e.isAlive()) {
+			if (isInRange(e) && findDistance(e) < closestDistance) {
 				closestDistance = findDistance(e);
 				closest = e;
 			}
@@ -83,7 +87,7 @@ public abstract class Tower implements Entity {
 		return closest;
 	}
 
-	private boolean isInRange(Enemy e) {
+	public boolean isInRange(Enemy e) {
 		float xDistance = Math.abs(e.getX() - x);
 		float yDistance = Math.abs(e.getY() - y);
 		if (xDistance < range && yDistance < range)
@@ -103,17 +107,13 @@ public abstract class Tower implements Entity {
 		return (float) Math.toDegrees(angleTemp) - 90;
 	}
 
-	public void shoot() {
-//		The projectile gets centered on the tile with x + Game.TILE_SIZE / 4.
-		projectiles.add(new ProjectileBullet(quickLoad("bullet"), target, x + TILE_SIZE / 4, y + TILE_SIZE / 4,
-				TILE_SIZE / 2, TILE_SIZE / 2, 900, damage));
-	}
+	public abstract void shoot(Enemy target);
 
 	public Enemy getTarget() {
 		return target;
 	}
 
-	public void updateEnemyList(ArrayList<Enemy> newEnemyList) {
+	public void updateEnemyList(CopyOnWriteArrayList<Enemy> newEnemyList) {
 		enemyList = newEnemyList;
 	}
 

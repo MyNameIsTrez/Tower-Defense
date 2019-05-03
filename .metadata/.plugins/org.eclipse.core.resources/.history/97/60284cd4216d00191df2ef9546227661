@@ -1,0 +1,11 @@
+package data;
+
+import java.util.concurrent.CopyOnWriteArrayList;
+
+public class TowerCannon extends Tower {
+
+	public TowerCannon(TowerType type, Tile startTile, CopyOnWriteArrayList<Enemy> enemyList) {
+		super(type, startTile, enemyList);
+	}
+
+}

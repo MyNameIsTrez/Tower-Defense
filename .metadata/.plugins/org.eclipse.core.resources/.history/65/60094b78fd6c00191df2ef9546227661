@@ -1,0 +1,34 @@
+package data;
+
+import static helpers.Artist.TILE_SIZE;
+import static helpers.Artist.quickLoad;
+
+import java.util.concurrent.CopyOnWriteArrayList;
+
+public class TowerIce extends Tower {
+
+	public TowerIce(TowerType type, Tile startTile, CopyOnWriteArrayList<Enemy> enemyList) {
+		super(type, startTile, enemyList);
+	}
+	
+	@Override
+	public Enemy acquireTarget() {
+		Enemy closest = null;
+		float closestDistance = 10000; // impossibly big number
+		for (Enemy e : enemyList)
+			if (isInRange(e) && findDistance(e) < closestDistance) {
+				closestDistance = findDistance(e);
+				closest = e;
+			}
+		if (closest != null)
+			targeted = true;
+		return closest;
+	}
+
+	@Override
+	public void shoot() {
+		projectiles.add(new ProjectileIceball(quickLoad("iceball"), target, x + TILE_SIZE / 4, y + TILE_SIZE / 4,
+				TILE_SIZE / 2, TILE_SIZE / 2, 900, damage));
+	}
+
+}

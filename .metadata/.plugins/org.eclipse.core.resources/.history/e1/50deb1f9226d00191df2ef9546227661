@@ -1,0 +1,11 @@
+package data;
+
+import org.newdawn.slick.opengl.Texture;
+
+public class ProjectileCannonball extends Projectile {
+
+	public ProjectileCannonball(ProjectileType type, Enemy target, float x, float y, int width, int height) {
+		super(type.texture, target, x, y, width, height, type.speed, type.damage);
+	}
+
+}

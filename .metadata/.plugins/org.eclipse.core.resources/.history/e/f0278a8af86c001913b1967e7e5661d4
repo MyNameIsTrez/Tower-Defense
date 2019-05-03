@@ -1,0 +1,64 @@
+package data;
+
+import static helpers.Artist.TILE_SIZE;
+import static helpers.Clock.delta;
+
+import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+public class Wave {
+
+	private float timeSinceLastSpawn, timeBetweenEnemies;
+	private Enemy enemyType;
+	private CopyOnWriteArrayList<Enemy> enemyList;
+	private int enemiesPerWave;
+	private boolean waveCompleted;
+
+	public Wave(Enemy enemyType, float timeBetweenEnemies, int enemiesPerWave) {
+		this.enemyType = enemyType;
+		this.timeBetweenEnemies = timeBetweenEnemies;
+		this.enemiesPerWave = enemiesPerWave;
+
+		this.waveCompleted = false;
+		this.timeSinceLastSpawn = 0;
+		this.enemyList = new CopyOnWriteArrayList<Enemy>();
+
+		spawn();
+	}
+
+	public void update() {
+		boolean allEnemiesDead = true;
+
+		if (enemyList.size() < enemiesPerWave) {
+			timeSinceLastSpawn += delta();
+			if (timeSinceLastSpawn > timeBetweenEnemies) {
+				spawn();
+				timeSinceLastSpawn = 0;
+			}
+		}
+
+		for (Enemy e : enemyList)
+			if (e.isAlive()) {
+				allEnemiesDead = false;
+				e.update();
+				e.draw();
+			}
+
+		if (allEnemiesDead)
+			waveCompleted = true;
+	}
+
+	public void spawn() {
+		enemyList.add(new Enemy(enemyType.getTexture(), enemyType.getStartTile(), enemyType.getTileGrid(), TILE_SIZE,
+				TILE_SIZE, enemyType.getSpeed(), enemyType.getHealth()));
+	}
+
+	public boolean isCompleted() {
+		return waveCompleted;
+	}
+
+	public ArrayList<Enemy> getEnemyList() {
+		return enemyList;
+	}
+
+}

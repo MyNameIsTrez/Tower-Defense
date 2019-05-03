@@ -14,3 +14,5 @@
 1556762316036	Rename resource 'TowerIce.png'
 1556762334679	Rename resource 'cannonBaseBullet.png'
 1556762346815	Rename resource 'cannonGunBullet.png'
+1556831820090	Rename resource 'bullet.png'
+1556832765003	Rename type 'ProjectileBullet'

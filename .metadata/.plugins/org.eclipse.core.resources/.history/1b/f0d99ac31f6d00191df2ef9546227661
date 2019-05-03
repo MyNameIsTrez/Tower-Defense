@@ -1,0 +1,25 @@
+package data;
+
+import static helpers.Artist.quickLoad;
+
+import org.newdawn.slick.opengl.Texture;
+
+public enum ProjectileType {
+
+	CannonBall(quickLoad("cannonball"), 10, 500),
+	Iceball(quickLoad("iceball"), 3, 750)
+
+	Texture[] textures;
+	int damage, range;
+	float firingSpeed;
+	int cost;
+
+	ProjectileType(Texture[] textures, int damage, int range, float firingSpeed, int cost) {
+		this.textures = textures;
+		this.damage = damage;
+		this.range = range;
+		this.firingSpeed = firingSpeed;
+		this.cost = cost;
+	}
+
+}

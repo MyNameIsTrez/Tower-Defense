@@ -16,19 +16,17 @@ public abstract class Projectile implements Entity {
 	private Enemy target;
 	private boolean alive;
 
-	public Projectile(Texture texture, Enemy target, float x, float y, int width, int height, float speed,
-			int damage) {
-		this.texture = texture;
+	public Projectile(ProjectileType type, Enemy target, float x, float y, int width, int height) {
+		this.texture = type.texture;
 		this.target = target;
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		this.speed = speed;
-		this.damage = damage;
+		this.speed = type.speed;
+		this.damage = type.damage;
 		this.alive = true;
 
-//		test what happens when '0f' is '0'
 		this.xVelocity = 0f;
 		this.yVelocity = 0f;
 
@@ -49,15 +47,15 @@ public abstract class Projectile implements Entity {
 	public void draw() {
 		drawQuadTex(texture, x, y, TILE_SIZE / 2, TILE_SIZE / 2);
 	}
-	
+
 	public void damage() {
 		target.damage(damage);
 		alive = false;
 	}
 
 	private void calculateDirection() {
-		// this can definitely be refactored to make more sense
-		float totalAllowedMovement = 1.0f; // xdir + ydir = 1
+		// This can definitely be refactored to make more sense.
+		float totalAllowedMovement = 1.0f; // xdir + ydir = 1.
 		float xDistanceFromTarget = Math.abs(target.getX() + TILE_SIZE / 4 - x);
 		float yDistanceFromTarget = Math.abs(target.getY() + TILE_SIZE / 4 - y);
 		float totalDistanceFromTarget = xDistanceFromTarget + yDistanceFromTarget;
@@ -106,7 +104,7 @@ public abstract class Projectile implements Entity {
 	public Enemy getTarget() {
 		return target;
 	}
-	
+
 	public void setAlive(boolean status) {
 		alive = status;
 	}

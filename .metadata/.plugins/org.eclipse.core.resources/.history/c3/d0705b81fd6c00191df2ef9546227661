@@ -1,0 +1,41 @@
+package data;
+
+import static helpers.Artist.TILE_SIZE;
+import static helpers.Artist.quickLoad;
+
+import java.util.concurrent.CopyOnWriteArrayList;
+
+public class TowerIce extends Tower {
+
+	public TowerIce(TowerType type, Tile startTile, CopyOnWriteArrayList<Enemy> enemyList) {
+		super(type, startTile, enemyList);
+	}
+	
+	@Override
+	public Enemy acquireTarget() {
+		Enemy fastest = null;
+		float highestSpeed = 10000; // impossibly big number
+		for (Enemy e : enemyList)
+			if (super.isInRange(e) && findSpeed(e) < highestSpeed) {
+				highestSpeed = findSpeed(e);
+				fastest = e;
+			}
+		if (fastest != null)
+			targeted = true;
+		return fastest;
+	}
+
+	private float findSpeed(Enemy e) {
+		float xDistance = Math.abs(e.getX() - x);
+		float yDistance = Math.abs(e.getY() - y);
+		return xDistance + yDistance; // Shouldn't this use Pythagorean theorem instead for the total pixels away the
+										// enemy is from the tower?
+	}
+
+	@Override
+	public void shoot() {
+		projectiles.add(new ProjectileIceball(quickLoad("iceball"), target, x + TILE_SIZE / 4, y + TILE_SIZE / 4,
+				TILE_SIZE / 2, TILE_SIZE / 2, 900, damage));
+	}
+
+}
